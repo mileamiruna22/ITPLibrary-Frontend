@@ -8,6 +8,7 @@
 @import url('components/book-card.css'); 
 
 @import url('sections/hero.css');
+@import url('sections/book-details.css');
 
 
 @import url('utils/responsive.css');

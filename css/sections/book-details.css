@@ -1,0 +1,93 @@
+.book-detail-section {
+    display: flex;
+    padding: 60px 0; 
+    gap: 60px; 
+    align-items: flex-start; 
+    max-width: 1000px;
+    margin-left: 100px;
+}
+
+.detail-image-container {
+    flex: 0 0 280px; 
+    max-width: 280px; 
+}
+
+.detail-book-cover {
+    width: 100%;
+    height: auto;
+    border-radius: 0;
+    display: block;
+}
+
+.detail-info-block {
+    flex: 1; 
+    padding-top: 0;
+    max-width: 500px; 
+    margin-left: 100px;
+}
+
+.detail-info-block h1 {
+    margin: 0 0 8px 0; 
+    font-size: 2.5rem; 
+    color: #1a1a1a;
+    font-weight: 700;
+    line-height: 1.2;
+    display: inline-block;
+    margin-right: 20px;
+}
+
+.detail-author {
+    font-size: 0.9rem;
+    color: #666;
+    font-style: normal;
+    margin: 0 0 25px 0;
+    display: block;
+}
+
+.author-name {
+    font-weight: 700; 
+}
+
+.detail-price {
+    color: #d4a574; 
+    font-size: 2rem; 
+    font-weight: 600;
+    display: inline-block;
+    vertical-align: top;
+    line-height: 1.2;
+    margin-left: 100px;
+}
+
+.detail-description {
+    font-size: 0.9rem;
+    color: #4a4a4a;
+    line-height: 1.8;
+    margin-bottom: 30px;
+    max-width: 100%; 
+}
+
+.detail-btn {
+    background-color: #000;
+    color: #fff;
+    border: none;
+    padding: 14px 40px; 
+    font-size: 0.85rem;
+    width: auto; 
+    cursor: pointer;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    transition: background-color 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.detail-btn::before {
+    content: "🛒";
+    font-size: 0.9rem;
+}
+
+.detail-btn:hover {
+    background-color: #333;
+}

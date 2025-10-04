@@ -43,6 +43,6 @@
     max-width: 360px;
     height: 360px;
     object-fit: cover;
-     border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
     
 }

@@ -90,3 +90,46 @@
         font-size: 1.8rem;
     }
 }
+
+
+@media (max-width: 900px) {
+    .book-detail-section {
+       
+        flex-direction: column;
+        gap: 30px;
+    }
+    
+    .detail-image-container {
+        flex: 0 0 100%;
+        display: flex;
+        justify-content: center;
+        align-self: center;
+        max-width: 100%;
+    }
+    
+    .detail-book-cover {
+        max-width: 300px;
+    }
+
+    .detail-info-block h1 {
+        font-size: 2.5rem;
+    }
+
+    .detail-price {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .book-detail-section {
+        padding: 40px 0;
+    }
+    
+    .detail-book-cover {
+        max-width: 200px; 
+    }
+    
+    .detail-info-block h1 {
+        font-size: 2rem;
+    }
+}
