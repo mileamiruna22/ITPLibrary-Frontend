@@ -1,0 +1,141 @@
+.cart-section {
+    padding: 60px 0;
+    max-width: 900px; 
+    margin: 0 auto; 
+}
+
+.cart-section h2 {
+    font-size: 1.8rem;
+    margin-bottom: 40px;
+    font-family: 'Playfair Display', serif;
+    font-weight: 700; 
+}
+
+.cart-item {
+    display: flex;
+    align-items: center;
+    padding: 20px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.cart-item-actions-group {
+    display: flex;
+    flex-direction: column; 
+    margin-left: auto; 
+    width: 150px; 
+    gap: 5px; 
+}
+
+.cart-item:last-of-type {
+    margin-bottom: 40px;
+}
+
+.cart-item-image {
+    width: 80px;
+    height: 120px;
+    object-fit: cover;
+    margin-right: 20px;
+    border-radius: 4px;
+}
+
+.cart-item-details {
+    flex-grow: 1; 
+}
+
+.cart-item-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.cart-item-author {
+    font-size: 0.9rem;
+    color: #666;
+    font-style: italic;
+}
+
+.cart-item-price {
+    color: #d4a574; 
+    font-size: 1.4rem;
+    font-weight: bold;
+    margin-left: 0; 
+    width: auto;
+    text-align: right; 
+}
+
+.cart-item-remove {
+    background: none;
+    border: none;
+    color: #000000;
+    font-size: 0.9rem;
+    cursor: pointer;
+    justify-content: flex-end; 
+    padding: 0;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.cart-item-remove:hover {
+    color: #333;
+}
+
+.remove-icon {
+    font-size: 0.8rem;
+}
+
+.cart-summary {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; 
+    border-top: 1px solid #eee; 
+    padding-top: 20px;
+}
+
+.cart-total {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 30px;
+    color: #333;
+}
+
+
+.cart-total .total-price {
+    color: #d4a574; 
+}
+
+
+.cart-actions {
+   display: flex;
+    justify-content: space-between;
+    width: 100%;
+    gap: 15px;
+    margin-bottom: 20px; 
+}
+
+.btn {
+    
+    padding: 10px 20px; 
+    font-size: 0.9rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s, border-color 0.3s;
+    font-weight: 600;
+}
+
+.btn-primary {
+    background-color: #000;
+    color: #fff;
+    border: 1px solid #000;
+}
+
+
+.btn-outline {
+    background-color: transparent;
+    color: #333;
+    border: 1px solid #ccc; 
+}
