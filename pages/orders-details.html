@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orders</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+   <header class="main-header">
+        <div class="content-wrapper header-flex">
+            <div class="logo">
+            <img src="../images/logoITP.jpg" class="logo-icon">
+            ITP Library
+        </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="home.html" class="nav-link"> <img src="../images/iconHome.png" class="logo-icon-menu">HOME</a></li>
+                    <li><a href="shopping-cart.html" class="nav-link"> <img src="../images/iconShopping.jpg" class="logo-icon-menu"> SHOPPING CART</a></li>
+                    <li><a href="orders.html" class="nav-link"> <img src="../images/iconOrders.jpg" class="logo-icon-menu">ORDERS</a></li>
+                    <li><a href="login.html" class="nav-link"> <img src="../images/iconLogin.jpg" class="logo-icon-menu">LOGIN</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="content-wrapper">
+        <section class="order-details-section">
+            
+            <div class="order-details-image">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtJoYGFgV6onrdagsF0GqvMteerqKMHqVR9w&s" alt="Bookshelf" class="full-size-image">
+            </div>
+
+            <div class="order-details-form-container">
+                <h2 class="form-title">Order Details</h2>
+
+                <form class="order-form">
+                    <h3 class="form-subsection-title">Contact Details</h3>
+                    <div class="form-group form-group--inline">
+                        <input type="text" placeholder="First Name" class="form-input">
+                        <input type="text" placeholder="Last Name" class="form-input">
+                    </div>
+
+                    <h3 class="form-subsection-title">Billing Address</h3>
+                    <div class="form-group">
+                        <select class="form-input form-select">
+                            <option>Country Selection</option>
+                            <option>Romania</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" placeholder="Address" class="form-input">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" placeholder="Phone Number" class="form-input">
+                    </div>
+                    
+                    <div class="form-group form-group--checkbox">
+                        <label><input type="checkbox" checked> Use address for delivery</label>
+                    </div>
+
+                    <h3 class="form-subsection-title">Delivery Address</h3>
+                    <div class="form-group">
+                        <select class="form-input form-select">
+                            <option>Country Selection</option>
+                            <option>Romania</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" placeholder="Address" class="form-input">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" placeholder="Phone Number" class="form-input">
+                    </div>
+
+                    <h3 class="form-subsection-title">Payment Type</h3>
+                    <div class="form-group form-group--inline form-group--radio">
+                        <label><input type="radio" name="payment" value="online" checked> Online</label>
+                        <label><input type="radio" name="payment" value="cash"> Cash</label>
+                    </div>
+
+                    <h3 class="form-subsection-title">Delivery Date</h3>
+                    <div class="form-group">
+                        <input type="text" placeholder="Delivery Date" onfocus="(this.type='date')" onblur="(this.type='text')" class="form-input form-input--date">
+                    </div>
+
+                    <h3 class="form-subsection-title">Observations</h3>
+                    <div class="form-group">
+                        <textarea placeholder="Observations" class="form-input form-textarea"></textarea>
+                    </div>
+
+                    <h3 class="form-subsection-title">Would You Recommend Us?</h3>
+                    <div class="form-group form-group--checkbox">
+                        <label><input type="checkbox"> Would you recommend us?</label>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-outline">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Place Order</button>
+                    </div>
+                </form>
+
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <div class="content-wrapper footer-flex"> <div class="footer-content">
+                <p>&copy; Copyright IT Perspectives</p>
+            </div>
+            <div class="right-icon"></div>
+        </div>
+    </footer>
+</body>
+</html>
