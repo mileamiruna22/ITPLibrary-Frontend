@@ -1,0 +1,92 @@
+@media (max-width: 1200px) {
+   
+    .book-card {
+        flex: 0 0 calc(25% - 19px);
+    }
+    
+    .content-wrapper {
+        padding: 0 40px;
+    }
+    
+    .books-of-month {
+        margin: 0 -40px;
+        padding: 60px 40px;
+    }
+}
+
+@media (max-width: 900px) {
+    
+    .book-card {
+        flex: 0 0 calc(33.333% - 17px);
+    }
+    
+    h1 {
+        font-size: 2.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .content-wrapper {
+        padding: 0 20px;
+    }
+    
+    .books-of-month {
+        margin: 0 -20px;
+        padding: 40px 20px;
+    }
+
+    .header-flex {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .hero-section {
+        flex-direction: column;
+        text-align: center;
+        padding: 40px 0;
+        gap: 40px;
+    }
+    
+    .hero-text {
+        max-width: 100%;
+    }
+
+    .hero-image {
+        max-width: 100%;
+        height: 300px;
+    }
+    
+    
+    .book-card {
+        flex: 0 0 calc(50% - 13px);
+    }
+    
+    .book-list {
+        gap: 15px;
+    }
+    
+    h1 {
+        font-size: 2rem;
+    }
+    
+    h2 {
+        font-size: 1.3rem;
+    }
+}
+
+@media (max-width: 480px) {
+   
+    .book-card {
+        flex: 0 0 100%;
+    }
+    
+    .main-nav ul {
+        flex-wrap: wrap; 
+        justify-content: center;
+        gap: 20px;
+    }
+    
+    h1 {
+        font-size: 1.8rem;
+    }
+}

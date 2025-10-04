@@ -1,0 +1,39 @@
+.main-footer {
+    
+    background-color: #e5e5e5;
+    padding: 20px 0; 
+    margin-top: 60px; 
+    width: 100%; 
+}
+
+
+.main-footer .content-wrapper {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    
+}
+
+.main-footer .footer-content p {
+    font-size: 0.8rem;
+    color: #555; 
+    margin: 0;
+}
+
+
+.footer-content .right-icon {
+    width: 30px;
+    height: 30px;
+    background-color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.footer-content .right-icon::before {
+    
+    content: "✉️"; 
+    color: #fff;
+    font-size: 0.9rem;
+}

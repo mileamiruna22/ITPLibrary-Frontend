@@ -1,0 +1,48 @@
+.main-header {
+    background-color: #ffffff;
+    padding: 15px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.logo {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.logo-icon {
+    
+    width: 25px; 
+    height: 25px; 
+    object-fit: contain;
+}
+
+.logo-icon-menu {
+    
+    width: 15px; 
+    height: 15px; 
+    object-fit: contain;
+}
+
+.main-nav ul {
+    display: flex;
+    gap: 35px;
+    align-items: center;
+}
+
+.nav-link {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #333;
+    transition: color 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+
