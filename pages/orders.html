@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping cart</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+   <header class="main-header">
+        <div class="content-wrapper header-flex">
+            <div class="logo">
+            <img src="../images/logoITP.jpg" class="logo-icon">
+            ITP Library
+        </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="home.html" class="nav-link"> <img src="../images/iconHome.png" class="logo-icon-menu">HOME</a></li>
+                    <li><a href="shopping-cart.html" class="nav-link"> <img src="../images/iconShopping.jpg" class="logo-icon-menu"> SHOPPING CART</a></li>
+                    <li><a href="orders.html" class="nav-link"> <img src="../images/iconOrders.jpg" class="logo-icon-menu">ORDERS</a></li>
+                    <li><a href="login.html" class="nav-link"> <img src="../images/iconLogin.jpg" class="logo-icon-menu">LOGIN</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+      <main class="content-wrapper">
+        <section class="orders-section">
+            <h2>Your products</h2>
+
+            <div class="order-item">
+                <div class="order-icon"><img src="../images/orders.jpg" ></div>
+                <div class="order-details">
+                    <h3 class="order-title">Order #78234</h3>
+                    <p class="order-info">Items: <span class="highlight-text">2</span></p>
+                    <p class="order-status order-status--progress">Delivery Status: <span class="highlight-text">In Progress</span></p>
+                </div>
+                <div class="order-actions-group"> 
+                    <div class="order-price">$90</div>
+                    <button class="order-edit">
+                        <span class="edit-icon"><img src="https://cdn-icons-png.flaticon.com/512/176/176318.png" ></span> Edit Order Details
+                    </button>
+                </div>
+            </div>
+            
+            <div class="order-item">
+                <div class="order-icon"><img src="../images/orders.jpg" ></div>
+                <div class="order-details">
+                    <h3 class="order-title">Order #78233</h3>
+                    <p class="order-info">Items: <span class="highlight-text">2</span></p>
+                    <p class="order-status order-status--completed">Delivery Status: <span class="highlight-text">Completed</span></p>
+                </div>
+                <div class="order-actions-group"> 
+                    <div class="order-price">$90</div>
+                    <button class="order-edit">
+                        <span class="edit-icon"><img src="https://cdn-icons-png.flaticon.com/512/176/176318.png" ></span> Edit Order Details
+                    </button>
+                </div>
+            </div>
+            
+        </section>
+    </main>
+
+   <footer class="main-footer">
+        <div class="content-wrapper footer-flex"> <div class="footer-content">
+                <p>&copy; Copyright IT Perspectives</p>
+            </div>
+            <div class="right-icon"></div>
+        </div>
+    </footer>
+</body>
+</html>

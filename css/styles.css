@@ -10,6 +10,7 @@
 @import url('sections/hero.css');
 @import url('sections/book-details.css');
 @import url('sections/shopping-cart.css');
+@import url('sections/orders.css');
 
 
 @import url('utils/responsive.css');
