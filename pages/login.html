@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+   <header class="main-header">
+        <div class="content-wrapper header-flex">
+            <div class="logo">
+            <img src="../images/logoITP.jpg" class="logo-icon">
+            ITP Library
+        </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="home.html" class="nav-link"> <img src="../images/iconHome.png" class="logo-icon-menu">HOME</a></li>
+                    <li><a href="shopping-cart.html" class="nav-link"> <img src="../images/iconShopping.jpg" class="logo-icon-menu"> SHOPPING CART</a></li>
+                    <li><a href="orders.html" class="nav-link"> <img src="../images/iconOrders.jpg" class="logo-icon-menu">ORDERS</a></li>
+                    <li><a href="login.html" class="nav-link"> <img src="../images/iconLogin.jpg" class="logo-icon-menu">LOGIN</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="content-wrapper">
+        <section class="register-section login-section"> 
+            
+            <div class="register-image">
+                <img src="https://images.pexels.com/photos/11836671/pexels-photo-11836671.jpeg" alt="Bookshelf with lights" class="full-size-image">
+            </div>
+
+            <div class="register-form-container login-form-container">
+                <h2 class="register-title">Log in</h2>
+                <p class="register-subtitle">Use a local account to log in.</p>
+
+                <form class="register-form login-form">
+                    
+                    <h3 class="form-subsection-title">Email</h3>
+                    <div class="form-group">
+                        <input type="email" placeholder="Email" class="form-input">
+                    </div>
+
+                    <h3 class="form-subsection-title">Password</h3>
+                    <div class="form-group">
+                        <input type="password" placeholder="Password" class="form-input">
+                    </div>
+                    
+                    <div class="form-group form-group--checkbox">
+                        <label>
+                            <input type="checkbox"> Remember me?
+                        </label>
+                    </div>
+
+                    <div class="form-actions form-actions--register">
+                        <button type="submit" class="btn btn-primary btn-register">Log in</button>
+                    </div>
+
+                    <div class="login-links">
+                        <a href="#" class="login-link">Forgot your password?</a>
+                    </div>
+                    <div class="login-links">
+                        <a href="register.html" class="login-link">Register as new user</a>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+   <footer class="main-footer">
+        <div class="content-wrapper footer-flex"> <div class="footer-content">
+                <p>&copy; Copyright IT Perspectives</p>
+            </div>
+            <div class="right-icon"></div>
+        </div>
+    </footer>
+</body>
+</html>

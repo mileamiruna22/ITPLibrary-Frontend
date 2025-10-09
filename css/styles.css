@@ -12,6 +12,8 @@
 @import url('sections/shopping-cart.css');
 @import url('sections/orders.css');
 @import url('sections/orders-details.css');
+@import url('sections/register.css');
+@import url('sections/login.css');
 
 
 @import url('utils/responsive.css');
