@@ -8,8 +8,6 @@
 
 .login-link {
     color: #333;
-    text-decoration: none;
-    transition: color 0.3s;
     text-decoration: underline;
 }
 
