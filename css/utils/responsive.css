@@ -20,10 +20,10 @@
         flex: 0 0 calc(33.333% - 17px);
     }
     
-    h1 {
+    /* h1 {
         font-size: 2.5rem;
-    }
-}
+    }*/
+} 
 
 @media (max-width: 768px) {
     .content-wrapper {
@@ -65,10 +65,10 @@
         gap: 15px;
     }
     
-    h1 {
+    /* h1 {
         font-size: 2rem;
     }
-    
+     */
     h2 {
         font-size: 1.3rem;
     }

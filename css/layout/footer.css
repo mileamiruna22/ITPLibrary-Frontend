@@ -20,6 +20,12 @@
     margin: 0;
 }
 
+.main-footer .footer-content p a {
+    font-weight: bold;
+    /* color: #000000; */
+    text-decoration: underline;
+}
+
 
 .footer-content .right-icon {
     width: 30px;
