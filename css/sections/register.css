@@ -1,9 +1,11 @@
 .register-section {
-    display: grid; 
-    grid-template-columns: 400px 1fr; 
-    gap: 200px; 
-    padding: 80px 0; 
-    margin-left: 100px;
+    display: flex; 
+    flex-direction: row; 
+    gap: 100px; 
+    padding: 40px; 
+    flex-wrap: wrap;
+    max-width: 70%; 
+    margin: 0 auto;
 }
 
 .register-title {
@@ -12,22 +14,20 @@
     margin: 0 0 5px 0;
 }
 
-
-.register-form .form-subsection-title {
-    margin: 20px 0 5px 0;
-}
-
-
-.form-actions--register {
-    margin-top: 40px;
-    padding-top: 0;
-    justify-content: flex-start; 
+.register-form-container {
+    display: flex; 
+    flex-direction: column; 
+    gap: 15px; 
+    width: 100%; 
+    flex: 1; 
 }
 
 .form-actions--register .btn-register {
-    width: 100%; 
-    max-width: 300px; 
-    font-weight: normal;
+    width: 50%; 
     padding: 15px 30px;
 }
 
+.register-image {
+    width: 20%;
+    flex: 1; 
+}

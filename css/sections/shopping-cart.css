@@ -2,11 +2,11 @@
     padding: 60px 0;
     width: 80%; 
     margin: 0 auto; 
+    flex-wrap: wrap;
 }
 
 .cart-section h2 {
     font-size: 1.8rem;
-    margin-bottom: 40px;
     font-weight: 700; 
 }
 
@@ -18,7 +18,6 @@
 }
 
 .cart-item-image {
-    object-fit: cover;
     margin-right: 20px;
     border-radius: 4px;
 }
@@ -33,11 +32,6 @@
     margin-bottom: 5px;
 }
 
-.cart-item-author {
-    font-size: 0.9rem;
-    color: #666;
-    font-style: italic;
-}
 
 .cart-item-price {
     color: #d4a574; 
@@ -51,10 +45,8 @@
 }
 
 .cart-total {
-    width: 100%;
     display: flex;
     justify-content: space-between;
-    font-size: 1.5rem;
     font-weight: bold;
     margin-bottom: 30px;
 }
@@ -67,10 +59,7 @@
 
 .cart-actions {
    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    gap: 15px;
-    margin-bottom: 20px; 
+   justify-content: space-between;
 }
 
 .btn {

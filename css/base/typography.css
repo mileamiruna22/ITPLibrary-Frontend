@@ -3,12 +3,15 @@ body {
     background-color: #ffffff; 
     color: #333;
     line-height: 1.6;
-    
+    display:flex;
+    flex-direction: column;
+    overflow: hidden;
+    height: 100vh;
 }
 
 
 h1 {
-    font-family: 'Georgia', serif; 
+    font-family: 'Merriweather Bold', serif; 
     color: #1a1a1a;
 }
 

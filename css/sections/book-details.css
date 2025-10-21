@@ -1,27 +1,23 @@
 .book-detail-section {
     display: flex;
-    padding: 60px 0; 
-    gap: 60px; 
-    align-items: flex-start; 
+    padding: 60px; 
     margin-left: 100px;
+    flex-wrap: wrap;
 }
 
 .detail-image-container {
-   flex: 0 0 30%;
+    /* flex: 1; 
+    display: flex; */
+    justify-content: center; 
+    align-items: center; 
 }
 
 .detail-book-cover {
-    width: 100%;
-    height: auto;
-    border-radius: 0;
-    display: block;
+    width: 50%;
 }
 
 .detail-info-block {
     flex: 1; 
-    padding-top: 0;
-    max-width: 500px; 
-    margin-left: 100px;
 }
 
 .detail-info-block h1 {
@@ -33,9 +29,8 @@
 .detail-author {
     font-size: 0.9rem;
     color: #666;
-    font-style: normal;
     margin: 0 0 25px 0;
-    display: block;
+
 }
 
 .author-name {

@@ -1,7 +1,11 @@
 .orders-section {
     padding: 60px 0;
-    max-width: 900px; 
-    margin: 0 auto; 
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    margin: 0 auto;
+    flex-wrap: wrap;
+
 }
 
 .orders-section h2 {
