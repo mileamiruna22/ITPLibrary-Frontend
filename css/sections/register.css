@@ -4,8 +4,8 @@
     gap: 100px; 
     padding: 40px; 
     flex-wrap: wrap;
-    max-width: 70%; 
-    margin: 0 auto;
+    /* max-width: 70%;  */
+    /* margin: 0 auto; */
 }
 
 .register-title {
