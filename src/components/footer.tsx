@@ -8,9 +8,9 @@ const Footer: React.FC<FooterProps> = () => {
       <div className="content-wrapper footer-flex">
         <div className="footer-content">
           <p>
-            &copy; Copyright 
+            &copy; Copyright  
             <a href="https://www.itperspectives.ro/" target="_blank" rel="noopener noreferrer">
-              IT Perspectives
+               IT Perspectives
             </a>
           </p> 
         </div>

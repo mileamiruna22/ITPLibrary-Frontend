@@ -1,7 +1,12 @@
-@import 'base/base';
-@import 'base/bookcard.scss';
-@import 'base/footer.scss';
-@import 'base/header.scss';
-@import 'base/layout.scss';
-@import 'base/home.scss';
+@import 'abstracts/variables';
 
+@import 'base/reset';
+@import 'base/typography';
+
+@import 'layout/footer';
+@import 'layout/header';
+@import 'layout/layout';
+
+@import 'components/book-card';
+@import 'components/book-section';
+@import 'components/hero-section';

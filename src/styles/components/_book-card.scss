@@ -1,0 +1,65 @@
+.book-card {
+    display: flex; 
+    background-color: $color-bg-body;
+    flex-direction: column;
+    width: 180px;
+    flex-shrink: 0;
+    align-self: stretch;
+}
+
+.book-cover {
+    width: 100%;
+    height: 180px;
+    object-fit: cover; 
+    display: block; 
+}
+
+
+.book-info { 
+    padding: 15px 5px 10px; 
+    flex-grow: 1;
+    position: relative;
+    padding-right: 60px;
+}
+
+
+.book-card h3 {
+    font-size: 0.95rem;
+    font-weight: 500;
+    line-height: 1.3;
+    display: block; 
+    word-wrap: break-word; 
+}
+
+
+.book-price {
+    font-size: 1rem;
+    font-weight: 600;
+    color: $color-accent-price; 
+    margin: 0;
+    position: absolute; 
+    top: 15px;
+    right: 5px;
+}
+
+
+.book-author {
+    font-size: 0.85rem;
+    color: $color-text-secondary;
+    margin: 5px 0 0;
+    display: block;
+    clear: both;
+}
+
+.add-to-cart-btn {
+    background-color: $color-accent-btn-bg;
+    color: $color-white;
+    padding: 12px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.add-to-cart-btn::before {
+    content: "🛒";
+    font-size: 0.9rem;
+}

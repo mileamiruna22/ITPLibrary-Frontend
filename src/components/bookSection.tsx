@@ -1,6 +1,6 @@
 import React from 'react';
 import BookCard from './bookCard';
-import type { Book } from '../../types/book';
+import type { Book } from '../types/book';
 
 type BookSectionProps = {
   title: string;

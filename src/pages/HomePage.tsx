@@ -1,6 +1,6 @@
 import React from 'react';
-import HeroSection from '../styles/components/heroSection'; 
-import BookSection from '../styles/components/bookSection';
+import HeroSection from '../components/heroSection'; 
+import BookSection from '../components/bookSection';
 import { BOOKS_OF_MONTH, RECENTLY_ADDED } from '../data/books'; 
 
 const HomePage: React.FC = () => {

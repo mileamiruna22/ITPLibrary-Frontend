@@ -1,5 +1,5 @@
 import React from 'react';
-import type { Book } from '../../types/book';
+import type { Book } from '../types/book';
 
 type BookCardProps = {
   book: Book;
