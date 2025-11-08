@@ -1,4 +1,4 @@
-import type { Book } from '../types/book';
+import type { Book } from '../types/Book';
 
 export const MOCK_BOOKS: Book[] = [
   { id: 1, title: 'Hero With Gold', author: 'Dougie Rogers', price: '$90', 

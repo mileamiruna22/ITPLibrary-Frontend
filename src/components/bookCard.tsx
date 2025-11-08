@@ -1,24 +1,24 @@
 import React from 'react';
-import type { Book } from '../types/book';
+import type { Book } from '../types/Book';
+import styles from '../styles/components/BookCard.module.scss'; 
 
 type BookCardProps = {
   book: Book;
 };
 
-const BookCard: React.FC<BookCardProps> = ({ book }) => {
+export const BookCard: React.FC<BookCardProps> = ({ book }) => {
   return (
-    <div className="book-card" key={book.id}>
-      <img src={book.imageSrc} alt={book.imageAlt} className="book-cover"/>
-      <div className="book-info"> 
-        <h3 className="book-title">{book.title}</h3>
-        <span className="book-price">{book.price}</span>
-        <p className="book-author">{book.author}</p>
+    <div className={styles.bookCard} key={book.id}>
+      <img src={book.imageSrc} alt={book.imageAlt} className={styles.bookCover} />
+      <div className={styles.bookInfo}>
+        <h3 className={styles.bookTitle}>{book.title}</h3>
+        <span className={styles.bookPrice}>{book.price}</span>
+        <p className={styles.bookAuthor}>{book.author}</p>
       </div>
-      <button className="add-to-cart-btn">
+      <button className={styles.addToCartBtn}>
         <a href="/book-details"> Add to cart </a>
       </button>
     </div>
   );
 };
 
-export default BookCard;

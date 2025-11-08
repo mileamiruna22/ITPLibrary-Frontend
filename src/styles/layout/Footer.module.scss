@@ -1,41 +1,37 @@
-.main-footer {
+@use '../../styles/abstracts/variables' as *; 
+
+.mainFooter {
     background-color: $color-bg-footer;
     padding: 20px 0; 
     width: 100%; 
     flex: 0 0 auto; 
-}
-
-
-.main-footer .content-wrapper {
     display: flex;
     justify-content: space-between; 
     align-items: flex-start;
-    
 }
 
-.main-footer .footer-content p {
+.footerContent p { 
     font-size: 0.8rem;
     color: $color-text-footer; 
     margin: 0;
+    
+    & a {
+        font-weight: bold;
+        text-decoration: underline;
+    }
 }
 
-.main-footer .footer-content p a {
-    font-weight: bold;
-    text-decoration: underline;
-}
 
-
-.footer-content .right-icon {
+.footerContent .right-icon {
     width: 30px;
     height: 30px;
     background-color: $color-text-primary;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
+    justify-content: flex-start;
+    align-items: flex-start;
 }
 
-.footer-content .right-icon::before {
+.footerContent .right-icon::before {
     content: "✉️"; 
     color: $color-white;
     font-size: 0.9rem;

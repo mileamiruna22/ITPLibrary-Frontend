@@ -1,4 +1,6 @@
-.book-card {
+@use '../abstracts/variables' as *; 
+
+.bookCard {
     display: flex; 
     background-color: $color-bg-body;
     flex-direction: column;
@@ -7,7 +9,7 @@
     align-self: stretch;
 }
 
-.book-cover {
+.bookCover {
     width: 100%;
     height: 180px;
     object-fit: cover; 
@@ -15,7 +17,7 @@
 }
 
 
-.book-info { 
+.bookInfo { 
     padding: 15px 5px 10px; 
     flex-grow: 1;
     position: relative;
@@ -23,7 +25,7 @@
 }
 
 
-.book-card h3 {
+.bookTitle {
     font-size: 0.95rem;
     font-weight: 500;
     line-height: 1.3;
@@ -32,7 +34,7 @@
 }
 
 
-.book-price {
+.bookPrice {
     font-size: 1rem;
     font-weight: 600;
     color: $color-accent-price; 
@@ -43,23 +45,30 @@
 }
 
 
-.book-author {
+.bookAuthor {
     font-size: 0.85rem;
     color: $color-text-secondary;
     margin: 5px 0 0;
-    display: block;
-    clear: both;
+    display: block;                
+    clear: both;   
 }
 
-.add-to-cart-btn {
-    background-color: $color-accent-btn-bg;
+.addToCartBtn {
+    background-color: $color-accent-btn-bg; 
     color: $color-white;
+    border: none;
     padding: 12px;
+    width: 100%;
+    font-size: 0.75rem;
     font-weight: 600;
     letter-spacing: 0.5px;
-}
-
-.add-to-cart-btn::before {
-    content: "🛒";
-    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;              
+    
+    &::before {                    
+        content: "🛒";
+        font-size: 0.9rem;
+    }
 }

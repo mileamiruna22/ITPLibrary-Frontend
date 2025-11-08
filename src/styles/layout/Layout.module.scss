@@ -1,4 +1,6 @@
-.content-wrapper {
+@use '../abstracts/variables' as *;
+
+.contentWrapper {
     padding: 0 $padding-wrapper 0 $padding-wrapper;
     display: flex;
     flex-direction: column;
@@ -6,7 +8,7 @@
     // overflow-y: auto;
 }
 
-.header-flex {
+.headerFlex {
     display: flex;
     justify-content: space-between;
     flex-direction: row;
@@ -14,7 +16,7 @@
 }
 
 
-.footer-flex {
+.footerFlex {
     display: flex;
     justify-content: space-between;
     align-items: center;

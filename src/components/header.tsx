@@ -1,48 +1,26 @@
 import React from 'react';
-
-const NAV_LINKS = [
-  { name: 'HOME', href: '/home', iconSrc: 'public/iconHome.png' },
-  { name: 'SHOPPING CART', href: '/cart', iconSrc: 'public/iconShopping.jpg' },
-  { name: 'ORDERS', href: '/orders', iconSrc: 'public/iconOrders.jpg' },
-  { name: 'LOGIN', href: '/login', iconSrc: 'public/iconLogin.jpg' },
-];
+import { Navbar } from './Navbar';
+import styles from '../styles/layout/Header.module.scss'; 
+import layoutStyles from '../styles/layout/Layout.module.scss'; 
 
 
-type HeaderProps = {};
-
-const Header: React.FC<HeaderProps> = () => {
+export const Header: React.FC = () => {
   return (
-    <header className="main-header">
-      <div className="content-wrapper header-flex">
-        <div className="logo">
-          <img 
-            src="public/logoITP.jpg" 
-            className="logo-icon" 
+    <header className={styles.mainHeader}>
+      <div className={`${layoutStyles.contentWrapper} ${layoutStyles.headerFlex}`}>
+        <div className={styles.logo}>
+          <img
+            src="logoITP.jpg"
+            className={styles.logoIcon}
             alt="ITP Library Logo"
           />
           ITP Library
         </div>
 
-        
-        <nav className="main-nav">
-          <ul>
-            {NAV_LINKS.map((link) => (
-              <li key={link.name}>
-                <a href={link.href} className="nav-link"> 
-                  <img 
-                    src={link.iconSrc} 
-                    className="logo-icon-menu"
-                    alt={`${link.name} Icon`}
-                  />
-                  {link.name}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </nav>
+        <Navbar />
+
       </div>
     </header>
   );
 };
 
-export default Header;

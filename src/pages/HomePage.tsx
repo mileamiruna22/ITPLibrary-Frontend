@@ -1,27 +1,26 @@
 import React from 'react';
-import HeroSection from '../components/heroSection'; 
-import BookSection from '../components/bookSection';
-import { BOOKS_OF_MONTH, RECENTLY_ADDED } from '../data/books'; 
+import { HeroSection, BookSection } from '../components';
+import { BOOKS_OF_MONTH, RECENTLY_ADDED } from '../data/Books.ts';
+import layoutStyles from '../styles/layout/Layout.module.scss'; 
 
-const HomePage: React.FC = () => {
+export const HomePage: React.FC = () => {
   return (
-    <div className="content-wrapper">
+    <div className={layoutStyles.contentWrapper}>
       <HeroSection />
     
       <BookSection 
         title="Best books of the month"
         books={BOOKS_OF_MONTH}
-        className="books-of-month"
+        className="booksOfMonth"
       />
   
       <BookSection 
         title="Recently added"
         books={RECENTLY_ADDED}
-        className="recently-added"
+        className="recentlyAdded"
       />
       
     </div>
   );
 };
 
-export default HomePage;

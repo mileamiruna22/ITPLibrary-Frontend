@@ -1,0 +1,40 @@
+@use '../../styles/abstracts/variables' as *; 
+
+.mainHeader { 
+    background-color: $color-bg-body;
+    padding: 15px 20px;
+    flex: 0 0 auto;
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.logo { 
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: $color-text-primary;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.logoIcon { 
+    width: 25px; 
+    height: 25px; 
+    object-fit: contain;
+}
+
+@media (max-width: $breakpoint-tablet) {
+    .logo {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: $breakpoint-mobile) {
+    .mainHeader {
+        padding: 10px 15px;
+        gap: 10px;
+    }
+}

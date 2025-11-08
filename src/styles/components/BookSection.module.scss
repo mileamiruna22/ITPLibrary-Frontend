@@ -1,0 +1,38 @@
+@use '../../styles/abstracts/variables' as *;
+
+.booksOfMonth,
+.recentlyAdded {
+    background-color:$color-bg-body;
+    padding: 40px;
+    position: relative;
+    top: -60px;
+    padding-top: 60px;
+    margin: 0 auto;
+    width: 90%;
+}
+
+.booksOfMonth {
+    & h2 {
+        margin-top: -30px;
+        margin-bottom: 30px;
+        font-size: larger;
+    }
+}
+
+.recentlyAdded {
+    & h2 {
+        margin-bottom: 30px;
+        margin-top: 30px; 
+        font-size: larger;
+    }
+}
+
+.bookList {
+    display: flex;
+    gap: $gap-default;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+
+}
+

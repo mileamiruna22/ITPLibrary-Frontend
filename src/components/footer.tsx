@@ -1,14 +1,15 @@
 import React from 'react';
+import styles from '../styles/layout/Footer.module.scss';
+import layoutStyles from '../styles/layout/Layout.module.scss'; 
 
-type FooterProps = {};
 
-const Footer: React.FC<FooterProps> = () => {
+export const Footer: React.FC = () => {
   return (
-    <footer className="main-footer">
-      <div className="content-wrapper footer-flex">
-        <div className="footer-content">
+    <footer className={styles.mainFooter}>
+      <div className={`${layoutStyles.contentWrapper} ${layoutStyles.footerFlex}`}>
+        <div className={styles.footerContent}>
           <p>
-            &copy; Copyright  
+            &copy; Copyright {" "}
             <a href="https://www.itperspectives.ro/" target="_blank" rel="noopener noreferrer">
                IT Perspectives
             </a>
@@ -19,4 +20,3 @@ const Footer: React.FC<FooterProps> = () => {
   );
 };
 
-export default Footer;

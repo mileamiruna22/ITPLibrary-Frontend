@@ -1,12 +1,3 @@
-@import 'abstracts/variables';
-
-@import 'base/reset';
-@import 'base/typography';
-
-@import 'layout/footer';
-@import 'layout/header';
-@import 'layout/layout';
-
-@import 'components/book-card';
-@import 'components/book-section';
-@import 'components/hero-section';
+@forward 'abstracts/variables';
+@forward 'base/reset';
+@forward'base/typography';

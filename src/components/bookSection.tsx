@@ -1,18 +1,19 @@
 import React from 'react';
-import BookCard from './bookCard';
-import type { Book } from '../types/book';
+import type { Book } from '../types/Book';
+import { BookCard } from './BookCard';
+import styles from '../styles/components/BookSection.module.scss';
 
 type BookSectionProps = {
   title: string;
   books: Book[];
-  className: string; 
+  className:'booksOfMonth' | 'recentlyAdded';
 };
 
-const BookSection: React.FC<BookSectionProps> = ({ title, books, className }) => {
+export const BookSection: React.FC<BookSectionProps> = ({ title, books, className }) => {
   return (
-    <section className={className}>
+    <section className={styles[className]}>
       <h2>{title}</h2>
-      <div className="book-list">
+      <div className={styles.bookList}>
         {books.map((book) => (
           <BookCard key={book.id} book={book} />
         ))}
@@ -21,4 +22,3 @@ const BookSection: React.FC<BookSectionProps> = ({ title, books, className }) =>
   );
 };
 
-export default BookSection;
