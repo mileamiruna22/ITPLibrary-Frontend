@@ -1,52 +1,63 @@
-import type { Book } from '../types/Book';
+import type { BookDTO } from './dtos/BookDTO';
+import type { BookDetailsDTO } from './dtos/BookDetailsDTO';
 
-const API_BOOKS_URL = 'https://localhost:7069/api'; 
+const apiUrl = import.meta.env.VITE_API_BASE_URL;
 
-type ApiBook = {
-    id: number;
-    title: string;
-    price: number;
-    author: string;
-    thumbnail: string;
-    popular: boolean;
-    recentlyAdded: boolean;
+export type ApiResult<T> = {
+  status: number;
+  ok: boolean;
+  data?: T;
+  error?: string;
 };
 
-export async function fetchBooks(): Promise<Book[]> {
-  const url = `${API_BOOKS_URL}/books`;
+export async function fetchBooks(): Promise<ApiResult<BookDTO[]>> {
+  const url = `${apiUrl}/books`;
 
   try {
     const response = await fetch(url);
 
     if (!response.ok) {
-      const errorDetail = await response.text();
-      throw new Error(`Eroare HTTP: ${response.status}. Verificați politica CORS pe portul 7069 (.NET) și protocolul HTTPS. Detalii: ${errorDetail || response.statusText}`);
+      return {
+        status: response.status,
+        ok: false,
+        error: `Error fetching books: ${response.status}`,
+      };
     }
 
-    const rawData: ApiBook[] = await response.json();
-
-    if (!Array.isArray(rawData)) {
-      throw new Error('Formatul de date primit nu este un array de cărți valid.');
-    }
-    
-    const booksFormatted: Book[] = rawData.map(book => ({
-      title: book.title,
-      author: book.author,
-      popular: book.popular,
-      recentlyAdded: book.recentlyAdded,
-      description: '',
-
-      id: book.id.toString(),
-      priceDisplay: `${book.price.toFixed(2)} $`,
-      imageSrc: book.thumbnail || `https://placehold.co/180x250/d4a574/ffffff?text=${encodeURIComponent(book.title.substring(0, 20).replace(/\s/g, '+'))}`,
-      imageAlt: `${book.title} - Coperta`,
-    }));
-    
-    return booksFormatted; 
-
+    const data: BookDTO[] = await response.json();
+    return {
+      status: response.status,
+      ok: true,
+      data: data,
+    };
   } catch (error) {
-    console.error("Eroare la preluarea cărților:", error);
-    const errorMessage = error instanceof Error ? error.message : 'Eroare necunoscută';
-    throw new Error(`Eroare la preluarea datelor: ${errorMessage}.`);
+    throw new Error(`Error fetching books`);
+  }
+}
+
+export async function fetchBookById(
+  id: string,
+): Promise<ApiResult<BookDetailsDTO>> {
+  const url = `${apiUrl}/books/${id}`;
+
+  try {
+    const response = await fetch(url);
+
+    if (!response.ok) {
+      return {
+        status: response.status,
+        ok: false,
+        error: `Error fetching book by ID ${id}: ${response.status}`,
+      };
+    }
+
+    const data: BookDetailsDTO = await response.json();
+    return {
+      status: response.status,
+      ok: true,
+      data: data,
+    };
+  } catch (error) {
+    throw new Error(`Error fetching book with ID ${id}`);
   }
 }

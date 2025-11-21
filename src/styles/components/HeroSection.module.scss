@@ -1,50 +1,49 @@
 @use '../../styles/abstracts/variables' as *;
 
 .heroSection {
-    display: flex;
-    background-color: $color-bg-hero;
-    padding: 40px 60px 40px 60px;
-    flex-wrap: wrap;
+  display: flex;
+  background-color: $color-bg-hero;
+  padding: 40px 60px 40px 60px;
+  flex-wrap: wrap;
 }
 
 .heroSectionContent {
-    display: flex;
-    padding-bottom: 40px;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: $gap-default;
+  display: flex;
+  padding-bottom: 40px;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: $gap-default;
 }
 
 .heroText {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding-left: 40px;
-    flex:1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 40px;
+  flex: 1;
 
-    & h1 {
-        font-size: 1.5rem;
-        line-height: 1.15;
-        padding-bottom: 40px;
-    }
+  & h1 {
+    font-size: 1.5rem;
+    line-height: 1.15;
+    padding-bottom: 40px;
+  }
 
-    & p {
-        font-size: 1rem;
-        line-height: 1.7;
-        color: $color-text-medium;
-    }
+  & p {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: $color-text-medium;
+  }
 }
 
-
 .heroImageContainer {
-    display: flex;
-    justify-content: flex-end;
-    flex-shrink: 0;
+  display: flex;
+  justify-content: flex-end;
+  flex-shrink: 0;
 }
 
 .heroImage {
-    height: 350px;
-    object-fit: cover;
-    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-    max-width: 350px;
+  height: 350px;
+  object-fit: cover;
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  max-width: 350px;
 }

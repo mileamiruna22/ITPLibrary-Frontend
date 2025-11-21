@@ -1,23 +1,21 @@
 @use '../abstracts/variables' as *;
 
 .contentWrapper {
-    padding: 0 $padding-wrapper 0 $padding-wrapper;
-    display: flex;
-    flex-direction: column;
-    flex: 1 1 auto;
-    // overflow-y: auto;
+  padding: 0 $padding-wrapper 0 $padding-wrapper;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  overflow-y: auto;
 }
 
 .headerFlex {
-    display: flex;
-    justify-content: space-between;
-    flex-direction: row;
-    gap: $gap-default;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  gap: $gap-default;
 }
 
-
 .footerFlex {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
 }

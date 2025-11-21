@@ -1,0 +1,10 @@
+@use '../abstracts/variables' as *;
+
+.loginLinks {
+  margin-top: 30px;
+}
+
+.loginLink {
+  color: $color-text-secondary;
+  text-decoration: underline;
+}

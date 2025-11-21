@@ -1,16 +1,8 @@
-export type Book = {
-  // Câmpuri transformate / finale
-  id: string; // Transformat din bookId (number)
-  priceDisplay: string; // Transformat din price (number)
-  imageSrc: string; // Transformat din imageUrl
+import type { BookDTO } from '../api/dtos/BookDTO';
 
-  // Câmpuri copiate (dar pot fi redenumite)
-  title: string;
-  author: string;
-  popular: boolean;
-  recentlyAdded: boolean;
+export type Book = BookDTO & {
+  priceDisplay: string;
+  imageSrc: string;
   description: string;
-  
-  // Câmpuri adăugate în frontend (nu vin de la API)
-  imageAlt: string; 
+  imageAlt: string;
 };

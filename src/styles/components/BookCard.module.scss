@@ -1,74 +1,66 @@
-@use '../abstracts/variables' as *; 
+@use '../abstracts/variables' as *;
 
 .bookCard {
-    display: flex; 
-    background-color: $color-bg-body;
-    flex-direction: column;
-    width: 180px;
-    flex-shrink: 0;
-    align-self: stretch;
+  display: flex;
+  background-color: $color-bg-body;
+  flex-direction: column;
+  width: 180px;
+  flex-shrink: 0;
+  align-self: stretch;
 }
 
 .bookCover {
-    width: 100%;
-    height: 180px;
-    object-fit: cover; 
-    display: block; 
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  display: block;
 }
 
-
-.bookInfo { 
-    padding: 15px 5px 10px; 
-    flex-grow: 1;
-    position: relative;
-    padding-right: 60px;
+.bookInfo {
+  padding: 15px 5px 10px;
+  flex-grow: 1;
+  position: relative;
+  padding-right: 60px;
 }
-
 
 .bookTitle {
-    font-size: 0.95rem;
-    font-weight: 500;
-    line-height: 1.3;
-    display: block; 
-    word-wrap: break-word; 
+  font-size: 0.95rem;
+  font-weight: 500;
+  line-height: 1.3;
+  display: block;
+  word-wrap: break-word;
 }
-
 
 .bookPrice {
-    font-size: 1rem;
-    font-weight: 600;
-    color: $color-accent-price; 
-    margin: 0;
-    position: absolute; 
-    top: 15px;
-    right: 5px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: $color-accent-price;
+  margin: 0;
+  position: absolute;
+  top: 15px;
+  right: 5px;
 }
 
-
 .bookAuthor {
-    font-size: 0.85rem;
-    color: $color-text-secondary;
-    margin: 5px 0 0;
-    display: block;                
-    clear: both;   
+  font-size: 0.85rem;
+  color: $color-text-secondary;
+  margin: 5px 0 0;
+  display: block;
+  clear: both;
 }
 
 .addToCartBtn {
-    background-color: $color-accent-btn-bg; 
-    color: $color-white;
-    border: none;
-    padding: 12px;
-    width: 100%;
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;              
-    
-    &::before {                    
-        content: "🛒";
-        font-size: 0.9rem;
-    }
+  background-color: $color-accent-btn-bg;
+  color: $color-white;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: auto;
+
+  &::before {
+    content: '🛒';
+    font-size: 0.9rem;
+  }
 }

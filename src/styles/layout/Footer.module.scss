@@ -1,38 +1,37 @@
-@use '../../styles/abstracts/variables' as *; 
+@use '../../styles/abstracts/variables' as *;
 
 .mainFooter {
-    background-color: $color-bg-footer;
-    padding: 20px 0; 
-    width: 100%; 
-    flex: 0 0 auto; 
-    display: flex;
-    justify-content: space-between; 
-    align-items: flex-start;
+  background-color: $color-bg-footer;
+  padding: 20px 0;
+  width: 100%;
+  flex: 0 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
 }
 
-.footerContent p { 
-    font-size: 0.8rem;
-    color: $color-text-footer; 
-    margin: 0;
-    
-    & a {
-        font-weight: bold;
-        text-decoration: underline;
-    }
-}
+.footerContent p {
+  font-size: 0.8rem;
+  color: $color-text-footer;
+  margin: 0;
 
+  & a {
+    font-weight: bold;
+    text-decoration: underline;
+  }
+}
 
 .footerContent .right-icon {
-    width: 30px;
-    height: 30px;
-    background-color: $color-text-primary;
-    display: flex;
-    justify-content: flex-start;
-    align-items: flex-start;
+  width: 30px;
+  height: 30px;
+  background-color: $color-text-primary;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
 }
 
 .footerContent .right-icon::before {
-    content: "✉️"; 
-    color: $color-white;
-    font-size: 0.9rem;
+  content: '✉️';
+  color: $color-white;
+  font-size: 0.9rem;
 }

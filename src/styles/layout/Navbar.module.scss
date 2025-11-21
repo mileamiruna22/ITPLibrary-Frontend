@@ -1,65 +1,63 @@
-@use '../../styles/abstracts/variables' as *; 
+@use '../../styles/abstracts/variables' as *;
 
-.mainNav { 
-    display: flex;
-    flex: 1 1 auto;
-    justify-content: flex-end;
-    align-items: center;
+.mainNav {
+  display: flex;
+  flex: 1 1 auto;
+  justify-content: flex-end;
+  align-items: center;
 }
 
-.mainNavList { 
-    display: flex;
-    gap: 35px;
-    align-items: flex-end;
-    flex-wrap: wrap;
-
+.mainNavList {
+  display: flex;
+  gap: 35px;
+  align-items: flex-end;
+  flex-wrap: wrap;
 }
 
-.navLink { 
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: $color-text-primary;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    text-transform: uppercase;
-    text-decoration: none;
-    letter-spacing: 0.5px;
-    white-space: nowrap;
+.navLink {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: $color-text-primary;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  text-transform: uppercase;
+  text-decoration: none;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
 }
 
-.logoIconMenu { 
-    width: 15px; 
-    height: 15px; 
-    object-fit: contain;
+.logoIconMenu {
+  width: 15px;
+  height: 15px;
+  object-fit: contain;
 }
 
 @media (max-width: $breakpoint-tablet) {
-    .mainNavList { 
-        gap: 20px; 
-    }
-    
-    .navLink {
-        font-size: 0.7rem; 
-        gap: 4px;
-    }
+  .mainNavList {
+    gap: 20px;
+  }
+
+  .navLink {
+    font-size: 0.7rem;
+    gap: 4px;
+  }
 }
 
-
 @media (max-width: $breakpoint-mobile) {
-    .mainNavList {
-        gap: 10px; 
-        justify-content: center; 
-        width: 100%; 
-    }
-    
-    .navLink {
-        font-size: 0.65rem;
-        gap: 3px;
-    }
-    
-    .logoIconMenu {
-        width: 12px;
-        height: 12px;
-    }
+  .mainNavList {
+    gap: 10px;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .navLink {
+    font-size: 0.65rem;
+    gap: 3px;
+  }
+
+  .logoIconMenu {
+    width: 12px;
+    height: 12px;
+  }
 }

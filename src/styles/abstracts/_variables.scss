@@ -3,27 +3,23 @@
 $color-white: #fff;
 $color-black: #000;
 
+$color-text-primary: #333;
+$color-text-heading: #1a1a1a;
+$color-text-medium: #4a4a4a;
+$color-text-secondary: #999;
+$color-text-footer: #555;
 
-$color-text-primary: #333;            
-$color-text-heading: #1a1a1a;          
-$color-text-medium: #4a4a4a;           
-$color-text-secondary: #999;           
-$color-text-footer: #555;              
+$color-accent-price: #d4a574;
+$color-accent-btn-bg: $color-black;
 
-
-$color-accent-price: #d4a574;          
-$color-accent-btn-bg: $color-black;     
-
-
-$color-bg-body: $color-white;          
-$color-bg-hero: #f4f3f3;               
-$color-bg-footer: #e5e5e5;             
+$color-bg-body: $color-white;
+$color-bg-hero: #f4f3f3;
+$color-bg-footer: #e5e5e5;
 
 // Typography
 
 $font-family-base: 'Arial', sans-serif;
 $font-family-heading: 'Merriweather Bold', serif;
-
 
 // Layout & Breakpoints
 

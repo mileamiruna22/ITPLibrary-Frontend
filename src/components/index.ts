@@ -1,6 +1,6 @@
-export { Header } from './header';
-export { Footer } from './footer';
-export { HeroSection } from './heroSection';
-export { BookSection } from './bookSection';
-export { BookCard } from './bookCard';
+export { Header } from './Header';
+export { Footer } from './Footer';
+export { HeroSection } from './HeroSection';
+export { MemoBookSection } from './BookSection';
+export { BookCard } from './BookCard';
 export { Navbar } from './Navbar';

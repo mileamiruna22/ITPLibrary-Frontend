@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import type { Book } from '../types/Book';
 import { BookCard } from './BookCard';
 import styles from '../styles/components/BookSection.module.scss';
@@ -6,10 +6,14 @@ import styles from '../styles/components/BookSection.module.scss';
 type BookSectionProps = {
   title: string;
   books: Book[];
-  className:'booksOfMonth' | 'recentlyAdded';
+  className: 'booksOfMonth' | 'recentlyAdded';
 };
 
-export const BookSection: React.FC<BookSectionProps> = ({ title, books, className }) => {
+const BookSection: React.FC<BookSectionProps> = ({
+  title,
+  books,
+  className,
+}) => {
   return (
     <section className={styles[className]}>
       <h2>{title}</h2>
@@ -22,3 +26,4 @@ export const BookSection: React.FC<BookSectionProps> = ({ title, books, classNam
   );
 };
 
+export const MemoBookSection = memo(BookSection);

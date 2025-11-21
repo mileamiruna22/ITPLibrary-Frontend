@@ -1,0 +1,37 @@
+@use '../abstracts/variables' as *;
+
+.registerSection {
+  display: flex;
+  flex-direction: row;
+  gap: 100px;
+  padding: 40px;
+  flex-wrap: wrap;
+  /* max-width: 70%; */
+  /* margin: 0 auto; */
+
+  .registerTitle {
+    font-size: 3rem;
+    font-weight: 700;
+    margin: 0 0 5px 0;
+  }
+
+  .registerFormContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    flex: 1;
+
+    .formActionsRegister {
+      .btnRegister {
+        width: 50%;
+        padding: 15px 30px;
+      }
+    }
+  }
+
+  .registerImage {
+    width: 20%;
+    flex: 1;
+  }
+}
