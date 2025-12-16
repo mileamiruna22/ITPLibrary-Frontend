@@ -1,19 +1,51 @@
 import layoutStyles from '../styles/layout/Layout.module.scss';
 import styles from '../styles/components/BookDetails.module.scss';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useBookDetails } from '../hooks/useBookDetails';
+import { Loading } from '../components/Loading';
+import { useCart } from '../hooks/useCart';
+import { useAuth } from '../hooks/useAuth';
 
 export const BookDetails = () => {
   const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
+
   const { book, isLoading, error } = useBookDetails(id);
+  const { addToCart } = useCart();
+  const { isLoggedIn } = useAuth();
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Loading />;
   }
 
   if (error && !book) {
     return <div>Error {error.message}</div>;
   }
+
+  const handleAddToCart = () => {
+    if (!isLoggedIn) {
+      navigate('/login');
+      return;
+    }
+
+    if (book) {
+      addToCart({
+        ...book, 
+
+
+        thumbnail: book.image,
+        imageSrc: book.image,
+        imageAlt: book.imageAlt,
+        description: book.longDescription,
+        priceDisplay: `${book.price} $`,
+
+        popular: false,
+        recentlyAdded: false,
+      });
+
+      alert('Book added to cart!');
+    }
+  };
 
   return (
     <main className={layoutStyles.contentWrapper}>
@@ -35,7 +67,9 @@ export const BookDetails = () => {
 
           <p className={styles.detailDescription}>{book?.longDescription}</p>
 
-          <button className={styles.detailBtn}>Add to cart</button>
+          <button className={styles.detailBtn} onClick={handleAddToCart}>
+            Add to cart
+          </button>
         </div>
       </section>
     </main>

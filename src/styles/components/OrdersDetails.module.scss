@@ -1,0 +1,93 @@
+@use '../abstracts/variables' as *;
+
+.orderDetailsSection {
+  display: flex;
+  gap: 100px;
+  padding: 60px 0;
+  margin-left: 10%;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.orderDetailsImage {
+  flex: 0 0 30%;
+  margin-top: 100px;
+}
+
+.orderDetailsFormContainer {
+  flex: 1 1 auto;
+  background-color: $color-white;
+  padding: 40px;
+  border: 1px solid #e5e5e5;
+  border-radius: 4px;
+}
+
+.formTitle {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0 0 30px 0;
+}
+
+.formSubsectionTitle {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.formGroup {
+  margin-bottom: 15px;
+
+  &Inline {
+    display: flex;
+    gap: 15px;
+
+    > div {
+      flex: 1 1 50%;
+    }
+  }
+
+  &Radio {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+
+    label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.95rem;
+    }
+  }
+
+  &Checkbox {
+    label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+  }
+}
+
+.formInput {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 0.95rem;
+  box-sizing: border-box;
+}
+
+.formActions {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.btn {
+  font-weight: 600;
+  justify-content: space-between;
+}
+
+.btnOutline {
+  background-color: transparent;
+  border: 1px solid #ccc;
+}

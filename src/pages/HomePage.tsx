@@ -3,18 +3,23 @@ import { HeroSection } from '../components';
 import layoutStyles from '../styles/layout/Layout.module.scss';
 import { useBooks } from '../hooks/useBooks';
 import { MemoBookSection } from '../components/BookSection';
+import { Loading } from '../components/Loading';
 
 export const HomePage: React.FC = () => {
   const { books, isLoading, error } = useBooks();
   const { topBooks = [], recentlyAddedBooks = [] } = books || {};
 
+  // if (isLoading) {
+  //   return (
+  //     <div className={`${layoutStyles.contentWrapper}`}>
+  //       <div></div>
+  //       <p>Loading...</p>
+  //     </div>
+  //   );
+  // }
+
   if (isLoading) {
-    return (
-      <div className={`${layoutStyles.contentWrapper}`}>
-        <div></div>
-        <p>Loading...</p>
-      </div>
-    );
+    return <Loading />;
   }
 
   if (error) {

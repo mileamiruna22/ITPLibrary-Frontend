@@ -1,0 +1,87 @@
+@use '../abstracts/variables' as *;
+
+.ordersSection {
+  padding: 60px 0;
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  margin: 0 auto;
+  flex-wrap: wrap;
+
+  h2 {
+    font-size: 2.5rem;
+    margin-bottom: 40px;
+    font-weight: 700;
+  }
+}
+
+.orderItem {
+  display: flex;
+  align-items: center;
+  padding: 20px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.orderIcon {
+  width: 80px;
+  height: 80px;
+  border-radius: 4px;
+  margin-right: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 3rem;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.orderInfo {
+  font-size: 0.9rem;
+  margin-bottom: 4px;
+}
+
+.orderActionsGroup {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-left: auto;
+  gap: 5px;
+}
+
+.orderPrice {
+  color: $color-accent-price;
+  font-size: 1.4rem;
+  font-weight: bold;
+  text-align: right;
+}
+
+.orderEdit {
+  display: flex;
+  gap: 4px;
+
+  .editIcon {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+.guestMessageContainer {
+  text-align: center;
+  padding: 100px 0;
+
+  h2 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+  }
+  .btnLoginRedirect {
+    display: inline-block;
+    background-color: $color-accent-btn-bg;
+    color: $color-white;
+    padding: 10px 20px;
+    margin-top: 20px;
+  }
+}

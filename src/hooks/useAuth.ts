@@ -19,8 +19,11 @@ const API_LOGIN_URL = 'https://localhost:7069/api/login';
 export const useAuth = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userData, setUserData] = useState<LoginResponse | null>(null);
+
+  const [isLoggedIn, setIsLoggedIn] = useState(() => {
+    return !!localStorage.getItem('authToken');
+  });
 
   const login = async (payload: LoginPayload): Promise<boolean> => {
     setLoading(true);
@@ -45,7 +48,8 @@ export const useAuth = () => {
         setIsLoggedIn(true);
         setUserData(data);
         return true;
-      } else {
+      } 
+
         let errorMessage = 'Login failed.';
         try {
           const errorData = await response.json();
@@ -59,7 +63,7 @@ export const useAuth = () => {
         }
         setError(errorMessage);
         return false;
-      }
+      
     } catch (err) {
       console.error('Network error during login:', err);
       setError('Could not contact server. Check your connection.');
@@ -73,6 +77,7 @@ export const useAuth = () => {
     localStorage.removeItem('authToken');
     setIsLoggedIn(false);
     setUserData(null);
+    window.location.href = '/login';
   };
 
   return { login, logout, loading, error, isLoggedIn, userData };

@@ -1,15 +1,22 @@
-import React, { useState, type FormEvent } from 'react';
+import React, { useState, type FormEvent, useEffect } from 'react';
 import layoutStyles from '../styles/layout/Layout.module.scss';
 import registerStyles from '../styles/components/Register.module.scss';
 import loginStyles from '../styles/components/Login.module.scss';
 import { useAuth } from '../hooks/useAuth';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router-dom';
 
 export const Login: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
   const { login, loading, error, isLoggedIn } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate('/');
+    }
+  }, [isLoggedIn, navigate]);
 
   const handleLogin = async (e: FormEvent) => {
     e.preventDefault();
@@ -21,6 +28,7 @@ export const Login: React.FC = () => {
 
     if (success) {
       console.log('Login successful!');
+      window.location.href = '/';
     }
   };
 
@@ -53,7 +61,7 @@ export const Login: React.FC = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                disabled={loading || isLoggedIn}
+                disabled={loading}
               />
             </div>
             <h3>Password</h3>
@@ -64,7 +72,7 @@ export const Login: React.FC = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                disabled={loading || isLoggedIn}
+                disabled={loading}
               />
             </div>
 
@@ -83,7 +91,7 @@ export const Login: React.FC = () => {
               <button
                 type="submit"
                 className={`${registerStyles.btnRegister}`}
-                disabled={loading || isLoggedIn}
+                disabled={loading}
               >
                 {loading ? 'Loading...' : 'Login'}
               </button>

@@ -3,4 +3,8 @@ export { Footer } from './Footer';
 export { HeroSection } from './HeroSection';
 export { MemoBookSection } from './BookSection';
 export { BookCard } from './BookCard';
+export { ShoppingCart } from '../pages/ShoppingCart';
 export { Navbar } from './Navbar';
+export { Loading } from './Loading';
+export { Orders } from '../pages/Orders';
+export { OrderDetails } from '../pages/OrdersDetails';

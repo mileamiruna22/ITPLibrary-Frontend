@@ -27,7 +27,7 @@ export const BookCard: React.FC<BookCardProps> = ({ book }) => {
         className={`${styles.addToCartBtn} ${styles.linkAsButton}`}
       >
         {' '}
-        Add to cart
+        Add to Cart
       </Link>
     </div>
   );

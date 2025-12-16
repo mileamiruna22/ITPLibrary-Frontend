@@ -1,0 +1,29 @@
+@use '../../styles/abstracts/variables' as *;
+
+.guestMessageContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 60px 20px;
+  place-items: center;
+  flex: 1;
+  min-height: 100%;
+
+
+  h2 {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 16px;
+  }
+
+  p {
+    margin-bottom: 32px;
+  }
+}
+
+.btnLoginRedirect {
+  padding: 12px 32px;
+  background-color: $color-accent-price;
+  color: $color-white;
+  border-radius: 8px;
+}
