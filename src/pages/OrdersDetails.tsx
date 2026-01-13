@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import layoutStyles from '../styles/layout/Layout.module.scss';
-import styles from '../styles/components/OrdersDetails.module.scss';
+import styles from './OrdersDetails.module.scss';
 import { useAuth } from '../hooks/useAuth';
 import { useCart } from '../hooks/useCart';
 import { useOrders } from '../hooks/useOrders';
+import { Button } from '../components';
 
 export const OrderDetails: React.FC = () => {
   const { isLoggedIn } = useAuth();
@@ -258,20 +259,19 @@ export const OrderDetails: React.FC = () => {
             </div>
 
             <div className={styles.formActions}>
-              <button
-                type="button"
-                className={`${styles.btn} ${styles.btnOutline}`}
+              <Button
+                variant="outline"
                 onClick={() => navigate('/cart')}
               >
                 Cancel
-              </button>
+              </Button>
 
-              <button
+              <Button
                 type="submit"
-                className={`${styles.btn} ${styles.btnPrimary}`}
+                variant="primary"
               >
                 Place Order
-              </button>
+              </Button>
             </div>
           </form>
         </div>

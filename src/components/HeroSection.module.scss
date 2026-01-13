@@ -1,4 +1,4 @@
-@use '../../styles/abstracts/variables' as *;
+@use '../styles/abstracts/variables' as *;
 
 .heroSection {
   display: flex;
@@ -43,7 +43,4 @@
 
 .heroImage {
   height: 350px;
-  object-fit: cover;
-  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-  max-width: 350px;
 }

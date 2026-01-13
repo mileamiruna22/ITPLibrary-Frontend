@@ -1,6 +1,6 @@
 import React from 'react';
 import { Navbar } from './Navbar';
-import styles from '../styles/layout/Header.module.scss';
+import styles from './Header.module.scss';
 import layoutStyles from '../styles/layout/Layout.module.scss';
 
 export const Header: React.FC = () => {

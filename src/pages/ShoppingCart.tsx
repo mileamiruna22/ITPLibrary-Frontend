@@ -1,7 +1,7 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Button } from '../components';
 import layoutStyles from '../styles/layout/Layout.module.scss';
-import styles from '../styles/components/ShoppingCart.module.scss';
+import styles from './ShoppingCart.module.scss';
 import { useAuth } from '../hooks/useAuth';
 import { useCart } from '../hooks/useCart';
 import { LoginRequiredMessage } from '../components/LoginRequiredMessage';
@@ -25,17 +25,16 @@ export const ShoppingCart: React.FC = () => {
       <main className={layoutStyles.contentWrapper}>
         <section className={styles.cartSection}>
           <h2>Shopping Cart</h2>
-          <div style={{ textAlign: 'center', padding: '50px 0' }}>
-            <p style={{ fontSize: '1.2rem', marginBottom: '20px' }}>
+          <div className={styles.emptyCart}>
+            <p>
               Your cart is currently empty.
             </p>
-            <Link
+            <Button
               to="/"
-              className={styles.btnOutline}
-              style={{ display: 'inline-block' }}
+              variant="outline"
             >
               Start Shopping
-            </Link>
+            </Button>
           </div>
         </section>
       </main>
@@ -98,15 +97,16 @@ export const ShoppingCart: React.FC = () => {
           </div>
 
           <div className={styles.cartActions}>
-            <Link
+            <Button
               to="/"
-              className={styles.btnOutline}
+              variant="outline"
             >
               Continue Shopping
-            </Link>
-            <Link to="/orders-details" className={styles.btnPrimary}>
+            </Button>
+            <Button to="/orders-details" variant="primary">
               Place Order
-            </Link>
+            </Button>
+       
           </div>
         </div>
       </section>

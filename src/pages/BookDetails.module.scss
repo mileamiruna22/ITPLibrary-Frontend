@@ -1,4 +1,4 @@
-@use '../abstracts/variables' as *;
+@use '../styles/abstracts/variables' as *;
 
 .bookDetailSection {
   display: flex;
@@ -47,19 +47,6 @@
       font-size: 0.9rem;
       color: $color-text-primary;
       margin-bottom: 30px;
-    }
-
-    .detailBtn {
-      background-color: $color-accent-btn-bg;
-      color: $color-white;
-      border: none;
-      padding: 14px 40px;
-      width: auto;
-      font-weight: 600;
-
-      &::before {
-        content: '🛒';
-      }
     }
   }
 }

@@ -9,14 +9,6 @@ export const HomePage: React.FC = () => {
   const { books, isLoading, error } = useBooks();
   const { topBooks = [], recentlyAddedBooks = [] } = books || {};
 
-  // if (isLoading) {
-  //   return (
-  //     <div className={`${layoutStyles.contentWrapper}`}>
-  //       <div></div>
-  //       <p>Loading...</p>
-  //     </div>
-  //   );
-  // }
 
   if (isLoading) {
     return <Loading />;

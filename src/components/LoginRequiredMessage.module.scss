@@ -1,4 +1,4 @@
-@use '../../styles/abstracts/variables' as *;
+@use '../styles/abstracts/variables' as *;
 
 .guestMessageContainer {
   display: flex;
@@ -19,11 +19,4 @@
   p {
     margin-bottom: 32px;
   }
-}
-
-.btnLoginRedirect {
-  padding: 12px 32px;
-  background-color: $color-accent-price;
-  color: $color-white;
-  border-radius: 8px;
 }

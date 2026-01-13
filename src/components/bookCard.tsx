@@ -1,7 +1,8 @@
 import React from 'react';
 import type { Book } from '../types/Book';
-import styles from '../styles/components/BookCard.module.scss';
+import styles from './BookCard.module.scss';
 import { Link } from 'react-router-dom';
+import { Button } from './Button';
 
 type BookCardProps = {
   book: Book;
@@ -22,13 +23,9 @@ export const BookCard: React.FC<BookCardProps> = ({ book }) => {
           <p className={styles.bookAuthor}>{book.author}</p>
         </div>
       </Link>
-      <Link
-        to={`/books/${book.id}`}
-        className={`${styles.addToCartBtn} ${styles.linkAsButton}`}
-      >
-        {' '}
-        Add to Cart
-      </Link>
+      <Button variant="BookCard" to={`/books/${book.id}`}>
+        🛒 Add to Cart
+      </Button>
     </div>
   );
 };

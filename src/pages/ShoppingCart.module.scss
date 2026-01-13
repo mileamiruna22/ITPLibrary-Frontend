@@ -1,4 +1,4 @@
-@use '../abstracts/variables' as *;
+@use '../styles/abstracts/variables' as *;
 
 .cartSection {
   padding: 60px 0;
@@ -60,25 +60,14 @@
 .cartActions {
   display: flex;
   justify-content: space-between;
+
 }
 
-.btn {
-  padding: 10px 20px;
-  font-size: 0.9rem;
-  border-radius: 4px;
-  font-weight: 600;
-}
-
-.btnPrimary {
-  background-color: $color-accent-btn-bg;
-  color: $color-white;
-  border: 1px solid $color-accent-btn-bg;
-}
-
-.btnOutline {
-  background-color: transparent;
-  color: $color-text-primary;
-  border: 1px solid $color-text-primary;
+.emptyCart{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
 }
 
 .guestMessageContainer {

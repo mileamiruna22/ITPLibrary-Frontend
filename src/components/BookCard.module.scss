@@ -1,4 +1,4 @@
-@use '../abstracts/variables' as *;
+@use '../styles/abstracts/variables' as *;
 
 .bookCard {
   display: flex;
@@ -49,18 +49,3 @@
   clear: both;
 }
 
-.addToCartBtn {
-  background-color: $color-accent-btn-bg;
-  color: $color-white;
-  padding: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  margin-top: auto;
-
-  &::before {
-    content: '🛒';
-    font-size: 0.9rem;
-  }
-}

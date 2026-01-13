@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import type { Book } from '../types/Book';
 import { BookCard } from './BookCard';
-import styles from '../styles/components/BookSection.module.scss';
+import styles from './BookSection.module.scss';
 
 type BookSectionProps = {
   title: string;

@@ -1,0 +1,33 @@
+@use '../styles/abstracts/variables' as *;
+
+.button {
+    background-color: $color-accent-btn-bg;
+    color: $color-white;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &.primary {
+        padding: 14px;
+        width: 250px;
+    }
+
+    &.outline {
+        background-color: transparent;
+        color: $color-text-primary;
+        border: 1px solid $color-text-primary;
+        padding: 14px;
+        width: 250px;
+    }
+
+    &.BookCard {
+        padding: 12px;
+        margin-top: auto;
+    }
+
+    &.request {
+        background-color: $color-accent-price;
+        padding: 12px 32px;
+    }
+}

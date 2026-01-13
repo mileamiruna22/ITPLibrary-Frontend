@@ -1,20 +1,5 @@
 import { useState } from 'react';
-
-interface LoginPayload {
-  userEmail: string;
-  password: string;
-}
-
-interface LoginResponse {
-  token: string;
-  userId: string;
-}
-
-const API_LOGIN_URL = 'https://localhost:7069/api/login';
-
-// const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
-// const API_LOGIN_ENDPOINT = '/api/login';
-// const API_LOGIN_URL = `${API_BASE_URL}${API_LOGIN_ENDPOINT}`;
+import { loginUserApi, type LoginPayload, type LoginResponse } from '../api/authApi';
 
 export const useAuth = () => {
   const [loading, setLoading] = useState(false);
@@ -32,41 +17,16 @@ export const useAuth = () => {
     setUserData(null);
 
     try {
-      const response = await fetch(API_LOGIN_URL, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(payload),
-      });
 
-      if (response.ok) {
-        const data: LoginResponse = await response.json();
+      const data = await loginUserApi(payload);
+      localStorage.setItem('authToken', data.token);
+      setIsLoggedIn(true);
+      setUserData(data);
+      return true;
 
-        localStorage.setItem('authToken', data.token);
-
-        setIsLoggedIn(true);
-        setUserData(data);
-        return true;
-      } 
-
-        let errorMessage = 'Login failed.';
-        try {
-          const errorData = await response.json();
-          if (errorData.message) {
-            errorMessage = errorData.message;
-          } else if (errorData.error) {
-            errorMessage = errorData.error;
-          }
-        } catch (e) {
-          errorMessage = `Server error: ${response.status} ${response.statusText}.`;
-        }
-        setError(errorMessage);
-        return false;
-      
-    } catch (err) {
-      console.error('Network error during login:', err);
-      setError('Could not contact server. Check your connection.');
+    } catch (err: any) {
+      console.error('Login error:', err);
+      setError(err.message || 'An unexpected error occurred.');
       return false;
     } finally {
       setLoading(false);

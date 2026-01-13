@@ -1,7 +1,7 @@
 import React  from 'react';
 import { Link } from 'react-router-dom';
 import layoutStyles from '../styles/layout/Layout.module.scss';
-import styles from '../styles/components/Orders.module.scss';
+import styles from './Orders.module.scss';
 import { useAuth } from '../hooks/useAuth';
 import { useOrders } from '../hooks/useOrders';
 import { LoginRequiredMessage } from '../components/LoginRequiredMessage';

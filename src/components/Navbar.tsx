@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import styles from '../styles/layout/Navbar.module.scss';
+import styles from './Navbar.module.scss';
 import { useAuth } from '../hooks/useAuth';
 
 const NAV_LINKS = [

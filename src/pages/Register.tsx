@@ -1,6 +1,6 @@
 import React, { useState, type FormEvent } from 'react';
 import layoutStyles from '../styles/layout/Layout.module.scss';
-import registerStyles from '../styles/components/Register.module.scss';
+import registerStyles from './Register.module.scss';
 import { useRegister } from '../hooks/useRegister';
 
 export const Register: React.FC = () => {

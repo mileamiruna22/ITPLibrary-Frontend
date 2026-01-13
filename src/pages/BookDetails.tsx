@@ -1,6 +1,7 @@
 import layoutStyles from '../styles/layout/Layout.module.scss';
-import styles from '../styles/components/BookDetails.module.scss';
+import styles from './BookDetails.module.scss';
 import { useNavigate, useParams } from 'react-router-dom';
+import { Button } from '../components/Button';
 import { useBookDetails } from '../hooks/useBookDetails';
 import { Loading } from '../components/Loading';
 import { useCart } from '../hooks/useCart';
@@ -67,9 +68,9 @@ export const BookDetails = () => {
 
           <p className={styles.detailDescription}>{book?.longDescription}</p>
 
-          <button className={styles.detailBtn} onClick={handleAddToCart}>
-            Add to cart
-          </button>
+          <Button  variant="primary" onClick={handleAddToCart}>
+            🛒 Add to cart
+          </Button>
         </div>
       </section>
     </main>

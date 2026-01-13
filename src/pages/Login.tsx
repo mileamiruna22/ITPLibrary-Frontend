@@ -1,7 +1,7 @@
 import React, { useState, type FormEvent, useEffect } from 'react';
 import layoutStyles from '../styles/layout/Layout.module.scss';
-import registerStyles from '../styles/components/Register.module.scss';
-import loginStyles from '../styles/components/Login.module.scss';
+import registerStyles from './Register.module.scss';
+import loginStyles from './Login.module.scss';
 import { useAuth } from '../hooks/useAuth';
 import { Link, useNavigate } from 'react-router-dom';
 

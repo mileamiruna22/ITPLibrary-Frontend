@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../styles/components/HeroSection.module.scss';
+import styles from './HeroSection.module.scss';
 
 export const HeroSection: React.FC = () => {
   return (
@@ -14,7 +14,7 @@ export const HeroSection: React.FC = () => {
         </div>
         <div className={styles.heroImageContainer}>
           <img
-            src="https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=800&h=800&fit=crop"
+            src="/public/slider1.png"
             alt="Library books"
             className={styles.heroImage}
           />

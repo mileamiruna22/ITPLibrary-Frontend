@@ -1,6 +1,6 @@
-import { Link } from 'react-router-dom';
 import layoutStyles from '../styles/layout/Layout.module.scss';
-import styles from '../styles/components/LoginRequiredMessage.module.scss';
+import styles from './LoginRequiredMessage.module.scss';
+import { Button } from './Button';
 
 interface LoginRequiredMessageProps {
   title?: string;
@@ -19,9 +19,9 @@ export const LoginRequiredMessage = ({
         <h2>{title}</h2>
         <p>{message}</p>
 
-        <Link to="/login" className={styles.btnLoginRedirect}>
+        <Button to="/login" variant="request">
           {buttonText}
-        </Link>
+        </Button>
       </section>
     </main>
   );
