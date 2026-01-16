@@ -5,10 +5,27 @@ import styles from './ShoppingCart.module.scss';
 import { useAuth } from '../hooks/useAuth';
 import { useCart } from '../hooks/useCart';
 import { LoginRequiredMessage } from '../components/LoginRequiredMessage';
+import { useNotification } from '../hooks/useNotification';
+import { Notification } from '../components/Notification';
 
 export const ShoppingCart: React.FC = () => {
   const { isLoggedIn } = useAuth();
   const { cartItems, removeFromCart, totalPrice } = useCart();
+
+  const { notification, showNotification, closeNotification } = useNotification();
+
+  const handleRemoveItem = (itemId: number, itemTitle: string) => {
+
+    showNotification(
+      'success', 
+      'Product removed.', 
+      `"${itemTitle}" is no longer in your cart.`
+    );
+
+    setTimeout(() => {
+    removeFromCart(itemId);
+    }, 3000);
+  };
 
   if (!isLoggedIn) {
     return (
@@ -81,7 +98,8 @@ export const ShoppingCart: React.FC = () => {
 
                 <button
                     className={styles.cartItemRemove}
-                    onClick={() => removeFromCart(item.id)} 
+                    // onClick={() => removeFromCart(item.id)} 
+                    onClick={() => handleRemoveItem(item.id, item.title)}
                   >
                     <span>🗑️</span> Remove
                   </button>
@@ -110,6 +128,16 @@ export const ShoppingCart: React.FC = () => {
           </div>
         </div>
       </section>
+
+
+       <Notification
+        type={notification.type}
+        title={notification.title}
+        message={notification.message}
+        isOpen={notification.isOpen}
+        onClose={closeNotification}
+      />
+
     </main>
   );
 };

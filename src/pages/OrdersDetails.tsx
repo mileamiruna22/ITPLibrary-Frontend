@@ -6,12 +6,15 @@ import { useAuth } from '../hooks/useAuth';
 import { useCart } from '../hooks/useCart';
 import { useOrders } from '../hooks/useOrders';
 import { Button } from '../components';
+import { useNotification } from '../hooks/useNotification';
+import { Notification } from '../components/Notification';
 
 export const OrderDetails: React.FC = () => {
   const { isLoggedIn } = useAuth();
   const navigate = useNavigate();
   const { cartItems, totalPrice } = useCart();
   const { addOrder } = useOrders();
+  const { notification, showNotification, closeNotification } = useNotification();
 
   const [formData, setFormData] = useState({
     firstName: '',
@@ -55,9 +58,16 @@ export const OrderDetails: React.FC = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     addOrder(formData, cartItems, totalPrice);
-    console.log('Final Order Data:', formData);
-    alert('Order placed successfully!');
-    navigate('/orders');
+
+    showNotification(
+      'success',
+      'Success',
+      'Order placed successfully!'
+    );
+
+    setTimeout(() => {
+      navigate('/orders');
+    }, 3000);
   };
 
   if (!isLoggedIn) return null;
@@ -276,6 +286,15 @@ export const OrderDetails: React.FC = () => {
           </form>
         </div>
       </section>
+
+      <Notification
+              type={notification.type}
+              title={notification.title}
+              message={notification.message}
+              isOpen={notification.isOpen}
+              onClose={closeNotification}
+            />
+
     </main>
   );
 };

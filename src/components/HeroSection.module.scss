@@ -3,44 +3,78 @@
 .heroSection {
   display: flex;
   background-color: $color-bg-hero;
-  padding: 40px 60px 40px 60px;
+  //padding: 40px 60px 40px 60px;
+  padding: 60px 80px 60px 80px;
+  padding-top: 100px;
   flex-wrap: wrap;
 }
 
 .heroSectionContent {
   display: flex;
   padding-bottom: 40px;
+  padding-left: 35px;
   flex-wrap: wrap;
   justify-content: space-between;
-  gap: $gap-default;
+  align-items: center;
+  gap: 150px;
+  max-width: 100%;
 }
 
 .heroText {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding-left: 40px;
+  padding-left: 0;
   flex: 1;
+  max-width: 500px;
 
   & h1 {
-    font-size: 2.5rem;
-    line-height: 1.15;
-    padding-bottom: 40px;
+    font-size: 3rem;
+    line-height: 1.2;
+    padding-bottom: 24px;
+    font-weight: 700;
+    margin: 0;
   }
 
   & p {
     font-size: 1rem;
-    line-height: 1.7;
+    line-height: 1.6;
     color: $color-text-medium;
+    margin: 0;
   }
 }
 
 .heroImageContainer {
   display: flex;
   justify-content: flex-end;
+  align-items: flex-end;
   flex-shrink: 0;
 }
 
 .heroImage {
-  height: 350px;
+  height: 300px; 
+  width: auto;
+  object-fit: contain;
+
+}
+
+.sliderIndicators {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 20px;
+  width: 100%;
+}
+
+.indicator {
+  width: 20px;
+  height: 3px;
+  border-radius: 2px;
+  background-color: $color-text-footer; 
+  transition: all 0.3s ease;
+
+  &.active {
+    background-color: $color-text-primary; 
+  }
 }

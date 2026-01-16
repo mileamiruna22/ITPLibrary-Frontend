@@ -1,10 +1,12 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useRef, useEffect } from 'react';
 import type { PlaceOrderDto } from '../api/dtos/PlaceOrderDTO';
-import { placeOrderApi, getUserOrdersApi } from '../api/orderApi';
+import { placeOrderApi, getUserOrdersApi, updateOrderStatusApi } from '../api/orderApi';
 import type { CartItem } from '../types/CartItem';
 
 export const useOrders = () => {
   const queryClient = useQueryClient();
+  const orderTimersRef = useRef<Map<number, ReturnType<typeof setTimeout>>>(new Map());
 
   const {
     data: orders = [],
@@ -15,6 +17,60 @@ export const useOrders = () => {
     queryFn: getUserOrdersApi,
     initialData: [],
   });
+
+  useEffect(() => {
+    return () => {
+      orderTimersRef.current.forEach((timer) => clearTimeout(timer));
+      orderTimersRef.current.clear();
+    };
+  }, []);
+
+  useEffect(() => {
+    
+    orders.forEach((order: any) => {
+      console.log(`📋 Order ${order.id}:`, {
+        status: order.status,
+        orderDate: order.orderDate,
+        hasTimer: orderTimersRef.current.has(order.id)
+      });
+      
+      if (order.status === 'Processing' && !orderTimersRef.current.has(order.id)) {
+       
+        const orderDate = new Date(order.orderDate);
+        const now = new Date();
+        const elapsedMinutes = (now.getTime() - orderDate.getTime()) / 1000 / 60;
+        
+        if (elapsedMinutes >= 2) {
+         
+          updateOrderStatusApi(order.id, 'Completed')
+            .then(() => {
+            
+              queryClient.invalidateQueries({ queryKey: ['orders'] });
+            })
+            
+        } else {
+          const remainingMs = (2 - elapsedMinutes) * 60 * 1000;
+          
+          const timer = setTimeout(() => {
+          
+            updateOrderStatusApi(order.id, 'Completed')
+              .then(() => {
+                
+                queryClient.invalidateQueries({ queryKey: ['orders'] });
+              })
+              .catch((err) => {
+                console.error(`❌ Failed to auto-update order ${order.id}:`, err);
+              });
+
+            orderTimersRef.current.delete(order.id);
+          }, remainingMs);
+
+          orderTimersRef.current.set(order.id, timer);
+          
+        }
+      }
+    });
+  }, [orders, queryClient]);
 
   const addOrderMutation = useMutation({
     mutationFn: async (data: {
@@ -30,7 +86,6 @@ export const useOrders = () => {
         ? data.details.billingCountry
         : data.details.deliveryCountry;
 
-    
       const bookIds: number[] = [];
       data.items.forEach((item) => {
         for (let i = 0; i < item.quantity; i++) {
@@ -52,8 +107,6 @@ export const useOrders = () => {
           postalCode: '000000',
         },
       };
-
-      console.log('Payload sent to API:', payload);
 
       return await placeOrderApi(payload);
     },

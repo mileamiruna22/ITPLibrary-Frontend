@@ -8,6 +8,9 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+  z-index: 1000;
+  position: fixed;
+  bottom: 0;
 }
 
 .footerContent p {

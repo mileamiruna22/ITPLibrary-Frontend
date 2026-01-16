@@ -83,6 +83,10 @@ export const Orders: React.FC = () => {
               const dateObj = new Date(order.orderDate);
               const formattedDate = dateObj.toLocaleDateString('ro-RO');
 
+              const isCompleted = order.status === 'Completed';
+              const statusColor = isCompleted ? 'green' : 'orange';
+              const statusText = isCompleted ? 'Completed' : 'Processing';
+
               return (
                 <div key={order.id} className={styles.orderItem}>
                   <div className={styles.orderIcon}>
@@ -95,21 +99,15 @@ export const Orders: React.FC = () => {
                   <div className={styles.orderDetails}>
                     <h3 className={styles.orderTitle}>Order #{order.id}</h3>
 
-                    <p className={styles.orderInfo}>
-                      Items count:{' '}
-                      <span className={styles.highlightText}>{totalItems}</span>
-                    </p>
-
-                    <p className={`${styles.orderStatus}`}>
+                     <p className={`${styles.orderStatus}`}>
                       Delivery Status:{' '}
                       <span
                         className={styles.highlightText}
-                        style={{ color: 'orange' }}
+                        style={{ color: statusColor }}
                       >
-                        Processing
+                        {statusText}
                       </span>
                     </p>
-
                     <p
                       style={{
                         fontSize: '0.8rem',
@@ -133,16 +131,42 @@ export const Orders: React.FC = () => {
                       {order.totalAmount.toFixed(2)} $
                     </div>
 
-                    <button className={styles.orderEdit}>
-                      <span className={styles.editIcon}>
-                        <img
-                          src="https://cdn-icons-png.flaticon.com/512/1159/1159633.png"
-                          alt="Edit"
-                          style={{ width: '100%', height: '100%' }}
-                        />
-                      </span>
-                      Order Details
-                    </button>
+                    {isCompleted ? (
+                      <button
+                        className={styles.orderEdit}
+                        disabled
+                        style={{
+                          opacity: 0.5,
+                          cursor: 'not-allowed',
+                        }}
+                      >
+                        <span className={styles.editIcon}>
+                          <img
+                            src="https://cdn-icons-png.flaticon.com/512/1159/1159633.png"
+                            alt="Edit"
+                            style={{ width: '100%', height: '100%' }}
+                          />
+                        </span>
+                        Cannot Edit
+                      </button>
+                    ) : (
+                     
+                      <Link
+                        to={`/orders/edit/${order.id}`}
+                        className={styles.orderEdit}
+                        style={{ textDecoration: 'none' }}
+                      >
+                        <span className={styles.editIcon}>
+                          <img
+                            src="https://cdn-icons-png.flaticon.com/512/1159/1159633.png"
+                            alt="Edit"
+                            style={{ width: '100%', height: '100%' }}
+                          />
+                        </span>
+                        Edit Order
+                      </Link>
+                    )}
+                 
                   </div>
                 </div>
               );

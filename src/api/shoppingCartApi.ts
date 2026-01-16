@@ -26,7 +26,7 @@ export const addToCartApi = async (bookId: number): Promise<void> => {
   if (!response.ok) {
     if (response.status === 401) {
       localStorage.removeItem('authToken');
-      throw new Error('Sesiunea ta a expirat. Te rugăm să te loghezi din nou.');
+      throw new Error('Token expired.');
     }
 
     const errorText = await response.text();
@@ -51,7 +51,7 @@ export const removeFromCartApi = async (itemId: number): Promise<void> => {
   if (!response.ok) {
     if (response.status === 401) {
       localStorage.removeItem('authToken');
-      throw new Error('Sesiunea ta a expirat. Te rugăm să te loghezi din nou.');
+      throw new Error('Token expired.');
     }
 
     const errorText = await response.text();
@@ -63,7 +63,6 @@ export const getCartApi = async (): Promise<ShoppingCartItemDto[]> => {
   const token = localStorage.getItem('authToken');
 
   if (!token) {
-    console.warn('⚠️ No auth token found');
     return [];
   }
 
@@ -77,7 +76,6 @@ export const getCartApi = async (): Promise<ShoppingCartItemDto[]> => {
   if (!response.ok) {
     if (response.status === 401) {
       localStorage.removeItem('authToken');
-      console.error('❌ Token expired when fetching cart');
       return [];
     }
 
@@ -89,6 +87,5 @@ export const getCartApi = async (): Promise<ShoppingCartItemDto[]> => {
   }
 
   const cart = await response.json();
-  console.log('✅ Cart received from API:', cart);
   return cart;
 };

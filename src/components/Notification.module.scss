@@ -1,0 +1,136 @@
+@use '../styles/abstracts/variables' as *;
+
+// Culori de alertă rafinate
+$success-main: #10b981;
+$success-bg: #ecfdf5;
+$error-main: #ef4444;
+$error-bg: #fef2f2;
+$warning-main: #f59e0b;
+$warning-bg: #fffbeb;
+$info-main: #3b82f6;
+$info-bg: #eff6ff;
+
+.notification {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  z-index: 10000;
+  width: 380px;
+  overflow: hidden;
+  border: 1px solid #f3f4f6;
+  animation: slideInRight 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+
+  @media (max-width: 480px) {
+    width: calc(100% - 32px);
+    right: 16px;
+    top: 16px;
+  }
+}
+
+.notificationContent {
+  display: flex;
+  padding: 16px;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.notificationIcon {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.notificationText {
+  flex-grow: 1;
+}
+
+.notificationTitle {
+  margin: 0 0 2px 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.notificationMessage {
+  margin: 0;
+  font-size: 14px;
+  color: #6b7280;
+  line-height: 1.4;
+}
+
+.notificationClose {
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  color: #9ca3af;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 50%;
+  transition: all 0.2s;
+
+  &:hover {
+    background-color: #f3f4f6;
+    color: #4b5563;
+  }
+}
+
+// Bara de progres subtilă în partea de jos
+.progressBar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background-color: rgba(0,0,0,0.05);
+}
+
+.progressFill {
+  height: 100%;
+  width: 0;
+  background-color: currentColor;
+  animation: progressLinear linear forwards;
+}
+
+// Modificatori culori
+.notification--success {
+  border-left: 4px solid $success-main;
+  .notificationIcon { background-color: $success-bg; color: $success-main; }
+  .progressFill { background-color: $success-main; }
+}
+.notification--error {
+  border-left: 4px solid $error-main;
+  .notificationIcon { background-color: $error-bg; color: $error-main; }
+  .progressFill { background-color: $error-main; }
+}
+.notification--warning {
+  border-left: 4px solid $warning-main;
+  .notificationIcon { background-color: $warning-bg; color: $warning-main; }
+  .progressFill { background-color: $warning-main; }
+}
+.notification--info {
+  border-left: 4px solid $info-main;
+  .notificationIcon { background-color: $info-bg; color: $info-main; }
+  .progressFill { background-color: $info-main; }
+}
+
+@keyframes slideInRight {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes progressLinear {
+  from { width: 100%; }
+  to { width: 0%; }
+}

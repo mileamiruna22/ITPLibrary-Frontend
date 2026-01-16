@@ -24,7 +24,7 @@ export const placeOrderApi = async (
   if (!response.ok) {
     if (response.status === 401) {
       localStorage.removeItem('authToken');
-      throw new Error('Sesiunea ta a expirat. Te rugăm să te loghezi din nou.');
+      throw new Error('Your session has expired. Please log in again.');
     }
 
     const errorText = await response.text();
@@ -39,7 +39,7 @@ export const getUserOrdersApi = async (): Promise<OrderDto[]> => {
   const token = localStorage.getItem('authToken');
 
   if (!token) {
-    console.warn('⚠️ No auth token found');
+    console.warn('No auth token found');
     return [];
   }
 
@@ -64,6 +64,105 @@ export const getUserOrdersApi = async (): Promise<OrderDto[]> => {
   }
 
   const orders = await response.json();
-  console.log('✅ Orders received from API:', orders);
+  console.log('Orders received from API:', orders);
   return orders;
+};
+
+export const updateOrderStatusApi = async (
+  orderId: number,
+  newStatus: string
+): Promise<void> => {
+  const token = localStorage.getItem('authToken');
+
+  if (!token) {
+    throw new Error('User not authenticated. Please login again.');
+  }
+
+  const response = await fetch(`${API_BASE_URL}/Order`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ 
+      orderId: orderId,      
+      newStatus: newStatus }), 
+  });
+
+  if (!response.ok) {
+    if (response.status === 401) {
+      localStorage.removeItem('authToken');
+      throw new Error('Session expired. Please login again.');
+    }
+
+    const errorText = await response.text();
+    throw new Error(`Failed to update order status: ${errorText}`);
+  }
+};
+
+
+// orderApi.ts
+
+export const getOrderByIdApi = async (orderId: number): Promise<OrderDto> => {
+  const token = localStorage.getItem('authToken');
+
+  if (!token) {
+    throw new Error('User not authenticated. Please login again.');
+  }
+
+  const response = await fetch(`${API_BASE_URL}/Order/${orderId}`, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  if (!response.ok) {
+    if (response.status === 401) {
+      localStorage.removeItem('authToken');
+      throw new Error('Unauthorized');
+    }
+
+    const errorText = await response.text();
+    throw new Error(`Failed to fetch order: ${errorText}`);
+  }
+
+  const order = await response.json();
+  return order;
+};
+
+export const updateOrderDetailsApi = async (
+  orderId: number,
+  updatedAddress: {
+    street: string;
+    city: string;
+    state: string;
+    postalCode: string;
+    country: string;
+  }
+): Promise<void> => {
+  const token = localStorage.getItem('authToken');
+
+  if (!token) {
+    throw new Error('User not authenticated. Please login again.');
+  }
+
+  const response = await fetch(`${API_BASE_URL}/Order/${orderId}/details`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(updatedAddress),
+  });
+
+  if (!response.ok) {
+    if (response.status === 401) {
+      localStorage.removeItem('authToken');
+      throw new Error('Session expired. Please login again.');
+    }
+
+    const errorText = await response.text();
+    throw new Error(`Failed to update order: ${errorText}`);
+  }
 };

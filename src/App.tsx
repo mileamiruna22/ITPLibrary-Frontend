@@ -9,6 +9,7 @@ import './styles/main.scss';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Orders } from './pages/Orders';
 import { OrderDetails } from './pages/OrdersDetails';
+import { OrderEdit } from './pages/OrderEdit';
 
 const queryClient = new QueryClient();
 function App() {
@@ -24,6 +25,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/orders-details" element={<OrderDetails />} />
+          <Route path="/orders/edit/:orderId" element={<OrderEdit />} />
         </Routes>
 
         <Footer />
