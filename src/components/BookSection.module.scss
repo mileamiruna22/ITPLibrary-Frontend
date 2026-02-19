@@ -11,26 +11,30 @@
   width: 90%;
 }
 
-.booksOfMonth {
-  & h2 {
-    margin-top: -30px;
-    margin-bottom: 30px;
-    font-size: larger;
-  }
+.booksOfMonth h2 {
+  margin-top: -30px;
+  margin-bottom: 30px;
+  font-size: larger;
 }
 
-.recentlyAdded {
-  & h2 {
-    margin-bottom: 30px;
-    margin-top: 30px;
-    font-size: larger;
-  }
+.recentlyAdded h2 {
+  margin-bottom: 30px;
+  margin-top: 0px;
+  font-size: larger;
 }
 
-.bookList {
-  display: flex;
-  gap: $gap-default;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
+// Container scrollabil vertical cu înălțime fixă
+.bookListWrapper {
+  position: relative;
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: 700px; // Ajustează: câte rânduri vrei să se vadă
+  width: 100%;
+}
+
+.loadingMore {
+  text-align: center;
+  padding: 16px;
+  color: $color-text-secondary;
+  font-size: 0.9rem;
 }

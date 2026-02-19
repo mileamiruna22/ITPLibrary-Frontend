@@ -10,13 +10,14 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Orders } from './pages/Orders';
 import { OrderDetails } from './pages/OrdersDetails';
 import { OrderEdit } from './pages/OrderEdit';
+import { AuthProvider } from './contexts/AuthProvider';
 
 const queryClient = new QueryClient();
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
+      <AuthProvider>
         <Header />
-
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/books/:id" element={<BookDetails />} />
@@ -27,8 +28,8 @@ function App() {
           <Route path="/orders-details" element={<OrderDetails />} />
           <Route path="/orders/edit/:orderId" element={<OrderEdit />} />
         </Routes>
-
         <Footer />
+        </AuthProvider>
     </QueryClientProvider>
   );
 }

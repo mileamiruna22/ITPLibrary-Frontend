@@ -2,7 +2,7 @@ import React from 'react';
 import { Button } from '../components';
 import layoutStyles from '../styles/layout/Layout.module.scss';
 import styles from './ShoppingCart.module.scss';
-import { useAuth } from '../hooks/useAuth';
+import { useAuth } from '../contexts/AuthProvider';
 import { useCart } from '../hooks/useCart';
 import { LoginRequiredMessage } from '../components/LoginRequiredMessage';
 import { useNotification } from '../hooks/useNotification';

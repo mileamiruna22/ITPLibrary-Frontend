@@ -5,7 +5,9 @@ import { Button } from '../components/Button';
 import { useBookDetails } from '../hooks/useBookDetails';
 import { Loading } from '../components/Loading';
 import { useCart } from '../hooks/useCart';
-import { useAuth } from '../hooks/useAuth';
+import { useAuth } from '../contexts/AuthProvider';
+import { useNotification } from '../hooks/useNotification';
+import { Notification } from '../components/Notification';
 
 export const BookDetails = () => {
   const { id } = useParams<{ id: string }>();
@@ -14,6 +16,7 @@ export const BookDetails = () => {
   const { book, isLoading, error } = useBookDetails(id);
   const { addToCart } = useCart();
   const { isLoggedIn } = useAuth();
+  const { notification, showNotification, closeNotification } = useNotification();
 
   if (isLoading) {
     return <Loading />;
@@ -44,7 +47,11 @@ export const BookDetails = () => {
         recentlyAdded: false,
       });
 
-      alert('Book added to cart!');
+      showNotification(
+        'success',
+        'Added to cart!',
+        `"${book.title}" has been added to your cart.`
+      );
     }
   };
 
@@ -60,8 +67,10 @@ export const BookDetails = () => {
         </div>
 
         <div className={styles.detailInfoBlock} style={{ flexGrow: 1 }}>
-          <h1 className={styles.detailTitle}>{book?.title}</h1>
-          <span className={styles.detailPrice}>{`${book?.price} $`}</span>
+          <div className={styles.titlePriceRow}>
+            <h1 className={styles.detailTitle}>{book?.title}</h1>
+            <span className={styles.detailPrice}>{`${book?.price} $`}</span>
+          </div>
           <p className={styles.detailAuthor}>
             by <span className={styles.authorName}>{book?.author}</span>
           </p>
@@ -73,6 +82,14 @@ export const BookDetails = () => {
           </Button>
         </div>
       </section>
+
+      <Notification
+        type={notification.type}
+        title={notification.title}
+        message={notification.message}
+        isOpen={notification.isOpen}
+        onClose={closeNotification}
+      />
     </main>
   );
 };

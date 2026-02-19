@@ -20,6 +20,11 @@ export const HeroSection: React.FC = () => {
     return () => clearInterval(interval);
   }, [slides.length]);
 
+  const goToSlide = (index: number) => {
+    console.log('Clicked on slide:', index);
+    setCurrentSlide(index);
+  };
+
   return (
     <section className={styles.heroSection}>
       <div className={styles.heroSectionContent}>
@@ -43,6 +48,7 @@ export const HeroSection: React.FC = () => {
         {slides.map((_, index) => (
           <div
             key={index}
+            onClick={() => goToSlide(index)}
             className={`${styles.indicator} ${currentSlide === index ? styles.active : ''}`}
           />
         ))}

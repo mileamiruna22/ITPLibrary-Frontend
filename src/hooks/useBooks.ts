@@ -1,53 +1,58 @@
-import { useQuery } from '@tanstack/react-query';
-import { fetchBooks, type ApiResult } from '../api/bookApi';
+import { useInfiniteQuery } from '@tanstack/react-query';
+import { fetchBooks } from '../api/bookApi';
 import type { BookDTO } from '../api/dtos/BookDTO';
 import type { Book } from '../types/Book';
 
-type BooksResult = {
-  topBooks: Book[];
-  recentlyAddedBooks: Book[];
-};
+const PAGE_SIZE = 20;
 
-type UseBooks = {
-  books: BooksResult;
-  isLoading: boolean;
-  error: string | null;
-  isFetching: boolean;
-};
+const mapBookDtoToBook = (book: BookDTO): Book => ({
+  ...book,
+  imageAlt: book.title,
+  imageSrc: book.thumbnail,
+  priceDisplay: `${book.price.toFixed(2)} $`,
+  description: '',
+});
 
-export const useBooks = (): UseBooks => {
-  const { data, error, isLoading, isFetching } = useQuery<
-    ApiResult<BookDTO[]>,
-    Error,
-    BooksResult
-  >({
+export const useBooks = () => {
+  const {
+    data,
+    isLoading,
+    isFetching,
+    error,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+  } = useInfiniteQuery({
     queryKey: ['books'],
-    queryFn: fetchBooks,
-    staleTime: 5 * 60 * 1000,
-    select: (apiResult): BooksResult => {
-      if (!apiResult.ok || !apiResult.data) {
-        return { topBooks: [], recentlyAddedBooks: [] };
-      }
+    queryFn: ({ pageParam }) => fetchBooks(pageParam, PAGE_SIZE),
+    initialPageParam: 1,
 
-      const books: Book[] = apiResult.data.map((book) => ({
-        ...book,
-        imageAlt: book.title,
-        imageSrc: book.thumbnail,
-        priceDisplay: `${book.price.toFixed(2)} $`,
-        description: '',
-      }));
-
-      return {
-        topBooks: books.filter((book) => book.popular),
-        recentlyAddedBooks: books.filter((book) => book.recentlyAdded),
-      };
+    // Dacă pagina returnează mai puțin de PAGE_SIZE cărți → nu mai sunt pagini
+    getNextPageParam: (lastPage, allPages) => {
+      if (!lastPage.data || lastPage.data.length < PAGE_SIZE) return undefined;
+      return allPages.length + 1; // Următoarea pagină
     },
+
+    staleTime: 5 * 60 * 1000,
   });
 
+  
+
+  // ─── Combinăm toate paginile într-o listă plată ──────────────────────────
+  const allBooks: Book[] = data?.pages
+    .flatMap(page => page.data ?? [])
+    .map(mapBookDtoToBook) ?? [];
+console.log('page data:', data?.pages[0]?.data?.length);
   return {
-    books: data || { topBooks: [], recentlyAddedBooks: [] },
+    books: {
+      topBooks: allBooks.filter(book => book.popular),
+      recentlyAddedBooks: allBooks.filter(book => book.recentlyAdded),
+    },
     isLoading,
-    error: error?.message || null,
     isFetching,
+    error: error?.message ?? null,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
   };
 };

@@ -10,9 +10,14 @@ export type ApiResult<T> = {
   error?: string;
 };
 
-export async function fetchBooks(): Promise<ApiResult<BookDTO[]>> {
-  const url = `${apiUrl}/books`;
-
+// ─── Fetch cărți cu paginare ─────────────────────────────────────────────────
+export async function fetchBooks(
+  page: number,
+  pageSize: number = 20
+): Promise<ApiResult<BookDTO[]>> {
+  const url = `${apiUrl}/books?page=${page}&pageSize=${pageSize}`;
+ console.log('fetchBooks called with page:', page, 'pageSize:', pageSize);
+  console.log('URL:', url);
   try {
     const response = await fetch(url);
 
@@ -28,7 +33,7 @@ export async function fetchBooks(): Promise<ApiResult<BookDTO[]>> {
     return {
       status: response.status,
       ok: true,
-      data: data,
+      data,
     };
   } catch (error) {
     throw new Error(`Error fetching books`);
@@ -55,7 +60,7 @@ export async function fetchBookById(
     return {
       status: response.status,
       ok: true,
-      data: data,
+      data,
     };
   } catch (error) {
     throw new Error(`Error fetching book with ID ${id}`);

@@ -6,7 +6,8 @@ import type { CartItem } from '../types/CartItem';
 
 export const useOrders = () => {
   const queryClient = useQueryClient();
-  const orderTimersRef = useRef<Map<number, ReturnType<typeof setTimeout>>>(new Map());
+  
+  const processedOrderIds = useRef<Set<number>>(new Set());
 
   const {
     data: orders = [],
@@ -19,118 +20,86 @@ export const useOrders = () => {
   });
 
   useEffect(() => {
-    return () => {
-      orderTimersRef.current.forEach((timer) => clearTimeout(timer));
-      orderTimersRef.current.clear();
-    };
-  }, []);
+    if (!orders || orders.length === 0) return;
 
-  useEffect(() => {
-    
     orders.forEach((order: any) => {
-      console.log(`📋 Order ${order.id}:`, {
-        status: order.status,
-        orderDate: order.orderDate,
-        hasTimer: orderTimersRef.current.has(order.id)
-      });
       
-      if (order.status === 'Processing' && !orderTimersRef.current.has(order.id)) {
+      const isNewOrder = order.status === 'Pending';
+      console.log(`---> Comanda #${order.id} are status: "${order.status}"`);
+      const alreadyScheduled = processedOrderIds.current.has(order.id);
+
+      if (isNewOrder && !alreadyScheduled) {
+        console.log(`[Timer] Găsit comanda #${order.id} cu status '${order.status}'. Pregătesc schimbarea în 'Shipped'...`);
        
+        processedOrderIds.current.add(order.id);
+
         const orderDate = new Date(order.orderDate);
         const now = new Date();
-        const elapsedMinutes = (now.getTime() - orderDate.getTime()) / 1000 / 60;
-        
-        if (elapsedMinutes >= 2) {
-         
-          updateOrderStatusApi(order.id, 'Completed')
-            .then(() => {
-            
-              queryClient.invalidateQueries({ queryKey: ['orders'] });
-            })
-            
-        } else {
-          const remainingMs = (2 - elapsedMinutes) * 60 * 1000;
-          
-          const timer = setTimeout(() => {
-          
-            updateOrderStatusApi(order.id, 'Completed')
-              .then(() => {
-                
-                queryClient.invalidateQueries({ queryKey: ['orders'] });
-              })
-              .catch((err) => {
-                console.error(`❌ Failed to auto-update order ${order.id}:`, err);
-              });
+        console.log(`     [TIME] Data comenzii: ${orderDate.toString()}`);
+        console.log(`     [TIME] Data curentă:  ${now.toString()}`);
+        const diffMs = now.getTime() - orderDate.getTime();
+        console.log(`     [TIME] Diferența (ms): ${diffMs}`);
+    
+        let delay = 120000 - diffMs; 
 
-            orderTimersRef.current.delete(order.id);
-          }, remainingMs);
+        if (delay < 0) delay = 2000; 
 
-          orderTimersRef.current.set(order.id, timer);
-          
-        }
+        console.log(`[Timer] Comanda #${order.id} se va actualiza în ${Math.floor(delay / 1000)} secunde.`);
+
+        setTimeout(async () => {
+          try {
+   
+            await updateOrderStatusApi(order.id, 'Completed');
+            console.log(`[Timer] Comanda #${order.id} a devenit 'Completed'.`);
+
+            queryClient.invalidateQueries({ queryKey: ['orders'] });
+            
+          } catch (err) {
+            console.error(`[Timer Error] Nu am putut actualiza comanda #${order.id}`, err);
+          }
+        }, delay);
       }
     });
-  }, [orders, queryClient]);
+  }, [orders, queryClient]); 
+
 
   const addOrderMutation = useMutation({
-    mutationFn: async (data: {
-      details: any;
-      items: CartItem[];
-      total: number;
-    }) => {
-      const addressToUse = data.details.useBillingForDelivery
-        ? data.details.billingAddress
-        : data.details.deliveryAddress;
-
-      const countryToUse = data.details.useBillingForDelivery
-        ? data.details.billingCountry
-        : data.details.deliveryCountry;
-
+    mutationFn: async ({ details, items, total }: { details: any; items: CartItem[]; total: number }) => {
       const bookIds: number[] = [];
-      data.items.forEach((item) => {
+      items.forEach((item) => {
         for (let i = 0; i < item.quantity; i++) {
           bookIds.push(item.id);
         }
       });
 
       if (bookIds.length === 0) {
-        throw new Error('No books in cart to place order.');
+        throw new Error('Coșul este gol.');
       }
 
+      const addressToUse = details.deliveryAddress || details.billingAddress || 'Address Missing';
+      
       const payload: PlaceOrderDto = {
         bookIds: bookIds,
         shippingAddress: {
-          street: addressToUse || 'Missing address',
-          country: countryToUse || 'Romania',
-          city: '-',
-          state: '-',
-          postalCode: '000000',
+          street: addressToUse,
+          country: details.deliveryCountry || 'Romania',
+          city: details.city || 'Sibiu', 
+          state: details.state || 'Sibiu',
+          postalCode: details.zip || '550000',
         },
       };
 
       return await placeOrderApi(payload);
     },
     onSuccess: (orderId) => {
-      console.log('Order placed successfully! Order ID:', orderId);
-
+      console.log('Comanda a fost plasată cu succes! ID:', orderId);
+      // Reîmprospătăm lista de comenzi imediat
       queryClient.invalidateQueries({ queryKey: ['orders'] });
-      localStorage.removeItem('cart');
-      queryClient.invalidateQueries({ queryKey: ['cart'] });
+      // Opțional: Aici ar trebui să golești coșul (prin hook-ul useCart, nu localStorage)
     },
     onError: (error: any) => {
-      console.error('Error placing order:', error);
-
-      let errorMessage = 'Failed to place order.';
-
-      if (error.message) {
-        errorMessage += ` Details: ${error.message}`;
-      }
-
-      if (error.message?.includes('not authenticated')) {
-        errorMessage = 'You are not authenticated. Please log in again.';
-      }
-
-      alert(errorMessage);
+      console.error('Eroare la plasarea comenzii:', error);
+      alert(error.message || 'Nu s-a putut plasa comanda.');
     },
   });
 
@@ -142,8 +111,6 @@ export const useOrders = () => {
     orders,
     addOrder,
     isLoading: addOrderMutation.isPending || isLoadingOrders,
-    isPlacingOrder: addOrderMutation.isPending,
-    isLoadingOrders,
-    error,
+    error
   };
 };

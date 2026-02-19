@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import layoutStyles from '../styles/layout/Layout.module.scss';
 import styles from './OrdersDetails.module.scss';
-import { useAuth } from '../hooks/useAuth';
+import { useAuth } from '../contexts/AuthProvider';
 import { useCart } from '../hooks/useCart';
 import { useOrders } from '../hooks/useOrders';
 import { Button } from '../components';

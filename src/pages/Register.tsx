@@ -1,20 +1,93 @@
 import React, { useState, type FormEvent } from 'react';
 import layoutStyles from '../styles/layout/Layout.module.scss';
 import registerStyles from './Register.module.scss';
+import formStyles from './Form.module.scss';
 import { useRegister } from '../hooks/useRegister';
+import { useNavigate } from 'react-router-dom'; // ← ADAUGĂ
+import { Button } from '../components';
 
 export const Register: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  
+  const [errors, setErrors] = useState<{
+    email?: string;
+    password?: string;
+    confirmPassword?: string;
+  }>({});
+  const [touched, setTouched] = useState<{
+    email?: boolean;
+    password?: boolean;
+    confirmPassword?: boolean;
+  }>({});
 
-  const { register } = useRegister();
+  const { register, loading } = useRegister();
+  const navigate = useNavigate(); // ← ADAUGĂ
+
+  const validateField = (
+    field: 'email' | 'password' | 'confirmPassword',
+    value: string
+  ) => {
+    if (field === 'email') {
+      if (!value.trim()) return 'Email is required';
+      if (!/\S+@\S+\.\S+/.test(value)) return 'Email is invalid';
+    }
+    if (field === 'password') {
+      if (!value.trim()) return 'Password is required';
+      if (value.length < 6) return 'Password must be at least 6 characters';
+    }
+    if (field === 'confirmPassword') {
+      if (!value.trim()) return 'Please confirm your password';
+      if (value !== password) return 'Passwords do not match';
+    }
+    return '';
+  };
+
+  const handleBlur = (field: 'email' | 'password' | 'confirmPassword') => {
+    setTouched({ ...touched, [field]: true });
+    let value = '';
+    if (field === 'email') value = email;
+    if (field === 'password') value = password;
+    if (field === 'confirmPassword') value = confirmPassword;
+    
+    const error = validateField(field, value);
+    setErrors({ ...errors, [field]: error });
+  };
+
+  const handleChange = (
+    field: 'email' | 'password' | 'confirmPassword',
+    value: string
+  ) => {
+    if (field === 'email') setEmail(value);
+    if (field === 'password') setPassword(value);
+    if (field === 'confirmPassword') setConfirmPassword(value);
+    
+    if (touched[field]) {
+      const error = validateField(field, value);
+      setErrors({ ...errors, [field]: error });
+    }
+    
+    if (field === 'password' && touched.confirmPassword && confirmPassword) {
+      const confirmError = confirmPassword !== value ? 'Passwords do not match' : '';
+      setErrors({ ...errors, confirmPassword: confirmError });
+    }
+  };
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
-    if (password !== confirmPassword) {
-      console.log('Passwords do not match.');
+    const emailError = validateField('email', email);
+    const passwordError = validateField('password', password);
+    const confirmPasswordError = validateField('confirmPassword', confirmPassword);
+
+    if (emailError || passwordError || confirmPasswordError) {
+      setErrors({
+        email: emailError,
+        password: passwordError,
+        confirmPassword: confirmPasswordError,
+      });
+      setTouched({ email: true, password: true, confirmPassword: true });
       return;
     }
 
@@ -26,9 +99,17 @@ export const Register: React.FC = () => {
 
     if (success) {
       console.log('Registration successful!');
+      // Resetează formularul
       setEmail('');
       setPassword('');
       setConfirmPassword('');
+      setErrors({});
+      setTouched({});
+      
+      // REDIRECT pe login după 500ms pentru feedback vizual
+      setTimeout(() => {
+        navigate('/login');
+      }, 500);
     }
   };
 
@@ -46,47 +127,75 @@ export const Register: React.FC = () => {
           <h1 className={`${registerStyles.registerTitle}`}>Register</h1>
           <p>Create a new account</p>
 
-          <form
-            className={`${registerStyles.registerForm}`}
-            onSubmit={handleSubmit}
-          >
-            <h3>Email</h3>
-            <div>
+          <form onSubmit={handleSubmit}>
+            {/* EMAIL */}
+            <div className={formStyles.formGroup}>
+              <label htmlFor="email">Email</label>
               <input
-                type="text"
+                type="email"
+                id="email"
                 placeholder="Email"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
+                onChange={(e) => handleChange('email', e.target.value)}
+                onBlur={() => handleBlur('email')}
+                className={touched.email && errors.email ? formStyles.inputError : ''}
+                disabled={loading}
               />
+              {touched.email && errors.email && (
+                <span className={formStyles.errorMessage}>{errors.email}</span>
+              )}
             </div>
 
-            <h3>Password</h3>
-            <div>
+            {/* PASSWORD */}
+            <div className={formStyles.formGroup}>
+              <label htmlFor="password">Password</label>
               <input
                 type="password"
+                id="password"
                 placeholder="Password"
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
+                onChange={(e) => handleChange('password', e.target.value)}
+                onBlur={() => handleBlur('password')}
+                className={touched.password && errors.password ? formStyles.inputError : ''}
+                disabled={loading}
               />
+              {touched.password && errors.password && (
+                <span className={formStyles.errorMessage}>{errors.password}</span>
+              )}
             </div>
 
-            <h3>Confirm Password</h3>
-            <div>
+            {/* CONFIRM PASSWORD */}
+            <div className={formStyles.formGroup}>
+              <label htmlFor="confirmPassword">Confirm Password</label>
               <input
                 type="password"
+                id="confirmPassword"
                 placeholder="Confirm Password"
                 value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                required
+                onChange={(e) => handleChange('confirmPassword', e.target.value)}
+                onBlur={() => handleBlur('confirmPassword')}
+                className={
+                  touched.confirmPassword && errors.confirmPassword
+                    ? formStyles.inputError
+                    : ''
+                }
+                disabled={loading}
               />
+              {touched.confirmPassword && errors.confirmPassword && (
+                <span className={formStyles.errorMessage}>
+                  {errors.confirmPassword}
+                </span>
+              )}
             </div>
 
             <div className={`${registerStyles.formActions}`}>
-              <button type="submit" className={`${registerStyles.btnRegister}`}>
-                Register
-              </button>
+              <Button
+                type="submit"
+                variant="primary"
+                disabled={loading}
+              >
+                {loading ? 'Registering...' : 'Register'}
+              </Button>
             </div>
           </form>
         </div>

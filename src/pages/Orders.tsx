@@ -2,7 +2,7 @@ import React  from 'react';
 import { Link } from 'react-router-dom';
 import layoutStyles from '../styles/layout/Layout.module.scss';
 import styles from './Orders.module.scss';
-import { useAuth } from '../hooks/useAuth';
+import { useAuth } from '../contexts/AuthProvider';
 import { useOrders } from '../hooks/useOrders';
 import { LoginRequiredMessage } from '../components/LoginRequiredMessage';
 
@@ -73,12 +73,12 @@ export const Orders: React.FC = () => {
           <div
             style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}
           >
-            {orders.map((order: any) => {
-              const totalItems =
-                order.orderItems?.reduce(
-                  (acc: number, item: any) => acc + item.quantity,
-                  0,
-                ) || 0;
+            {[...orders].sort((a, b) => a.id - b.id).map((order: any) => {
+              // const totalItems =
+              //   order.orderItems?.reduce(
+              //     (acc: number, item: any) => acc + item.quantity,
+              //     0,
+              //   ) || 0;
 
               const dateObj = new Date(order.orderDate);
               const formattedDate = dateObj.toLocaleDateString('ro-RO');
@@ -91,7 +91,7 @@ export const Orders: React.FC = () => {
                 <div key={order.id} className={styles.orderItem}>
                   <div className={styles.orderIcon}>
                     <img
-                      src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&q=80&w=200"
+                      src="../public/orders.jpg"
                       alt="Order Thumbnail"
                     />
                   </div>

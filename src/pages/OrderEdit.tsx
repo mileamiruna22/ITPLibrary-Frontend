@@ -3,8 +3,11 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { getOrderByIdApi, updateOrderDetailsApi } from '../api/orderApi';
 import layoutStyles from '../styles/layout/Layout.module.scss';
+import formStyles from './Form.module.scss';
 import styles from './OrderEdit.module.scss';
 import { Button } from '../components';
+import { useNotification } from '../hooks/useNotification';
+import { Notification } from '../components/Notification';
 
 export const OrderEdit: React.FC = () => {
   const { orderId } = useParams<{ orderId: string }>();
@@ -17,6 +20,8 @@ export const OrderEdit: React.FC = () => {
   const [postalCode, setPostalCode] = useState('');
   const [country, setCountry] = useState('');
 
+  const { notification, showNotification, closeNotification } = useNotification();
+
   const {
     data: order,
     isLoading,
@@ -27,7 +32,6 @@ export const OrderEdit: React.FC = () => {
     enabled: !!orderId,
   });
 
-
   useEffect(() => {
     if (order) {
       setStreet(order.shippingAddress?.street || '');
@@ -37,7 +41,6 @@ export const OrderEdit: React.FC = () => {
       setCountry(order.shippingAddress?.country || '');
     }
   }, [order]);
-
 
   const updateMutation = useMutation({
     mutationFn: () =>
@@ -51,11 +54,11 @@ export const OrderEdit: React.FC = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['orders'] });
       queryClient.invalidateQueries({ queryKey: ['order', orderId] });
-      alert('Order updated successfully!');
-      navigate('/orders');
+      showNotification('success', 'Order updated!', 'Your order has been updated successfully.');
+      setTimeout(() => navigate('/orders'), 1500);
     },
     onError: (error: any) => {
-      alert(`Failed to update order: ${error.message}`);
+      showNotification('error', 'Update failed!', `Failed to update order: ${error.message}`);
     },
   });
 
@@ -63,7 +66,7 @@ export const OrderEdit: React.FC = () => {
     e.preventDefault();
 
     if (order?.status === 'Completed') {
-      alert('Cannot edit completed orders!');
+      showNotification('error', 'Cannot edit order!', 'Completed orders cannot be edited.');
       return;
     }
 
@@ -115,12 +118,11 @@ export const OrderEdit: React.FC = () => {
           </span>
         </div>
 
-
         <form onSubmit={handleSubmit} className={styles.form}>
           <div className={styles.section}>
             <h3>Shipping Address</h3>
 
-            <div className={styles.formGroup}>
+            <div className={formStyles.formGroup}>
               <label htmlFor="street">Street Address</label>
               <input
                 type="text"
@@ -131,8 +133,8 @@ export const OrderEdit: React.FC = () => {
               />
             </div>
 
-            <div className={styles.formRow}>
-              <div className={styles.formGroup}>
+            <div className={formStyles.formRow}>
+              <div className={formStyles.formGroup}>
                 <label htmlFor="city">City</label>
                 <input
                   type="text"
@@ -143,7 +145,7 @@ export const OrderEdit: React.FC = () => {
                 />
               </div>
 
-              <div className={styles.formGroup}>
+              <div className={formStyles.formGroup}>
                 <label htmlFor="state">State</label>
                 <input
                   type="text"
@@ -155,8 +157,8 @@ export const OrderEdit: React.FC = () => {
               </div>
             </div>
 
-            <div className={styles.formRow}>
-              <div className={styles.formGroup}>
+            <div className={formStyles.formRow}>
+              <div className={formStyles.formGroup}>
                 <label htmlFor="postalCode">Postal Code</label>
                 <input
                   type="text"
@@ -167,7 +169,7 @@ export const OrderEdit: React.FC = () => {
                 />
               </div>
 
-              <div className={styles.formGroup}>
+              <div className={formStyles.formGroup}>
                 <label htmlFor="country">Country</label>
                 <input
                   type="text"
@@ -205,18 +207,24 @@ export const OrderEdit: React.FC = () => {
               Cancel
             </Button>
 
-   
-              <Button
-                type="submit"
-                variant="primary"
-                disabled={updateMutation.isPending}
-              >
-                {updateMutation.isPending ? 'Saving...' : 'Save Changes'}
-              </Button>
- 
+            <Button
+              type="submit"
+              variant="primary"
+              disabled={updateMutation.isPending}
+            >
+              {updateMutation.isPending ? 'Saving...' : 'Save Changes'}
+            </Button>
           </div>
         </form>
       </section>
+
+      <Notification
+        type={notification.type}
+        title={notification.title}
+        message={notification.message}
+        isOpen={notification.isOpen}
+        onClose={closeNotification}
+      />
     </main>
   );
 };

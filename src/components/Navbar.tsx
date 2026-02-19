@@ -1,9 +1,10 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styles from './Navbar.module.scss';
-import { useAuth } from '../hooks/useAuth';
+import { useAuth } from '../contexts/AuthProvider'; 
 import { useCart } from '../hooks/useCart'; 
 import { CartBadge } from './CartBadge';
+import { useQueryClient } from '@tanstack/react-query';
 
 interface NavLink {
   name: string;
@@ -22,11 +23,13 @@ export const Navbar: React.FC = () => {
   const { isLoggedIn, logout } = useAuth();
   const { cartItems } = useCart();
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
-  const totalItems = cartItems.reduce((total, item) => total + item.quantity, 0);
+  const totalItems = isLoggedIn ? cartItems.reduce((total, item) => total + item.quantity, 0) : 0;
 
-  const handleLogout = () => {
-    logout();
+  const handleLogout = async () => {
+    await logout();
+    queryClient.removeQueries({ queryKey: ['cart'] }); // ← golește cache-ul coșului
     navigate('/');
   };
 
@@ -45,7 +48,6 @@ export const Navbar: React.FC = () => {
                   {link.showBadge && <CartBadge count={totalItems} />}
                </span>
                {link.name}
-
             </Link>
           </li>
         ))}

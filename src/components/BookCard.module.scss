@@ -5,8 +5,9 @@
   background-color: $color-bg-body;
   flex-direction: column;
   width: 130px;
+  height: 340px;      // ← Mărit pentru a include butonul
   flex-shrink: 0;
-  align-self: stretch;
+  overflow: hidden;
 }
 
 .bookCover {
@@ -14,13 +15,16 @@
   height: 180px;
   object-fit: contain;
   display: block;
+  flex-shrink: 0;     // ← Nu lăsa imaginea să se micșoreze
 }
 
 .bookInfo {
   padding: 15px 5px 10px;
-  flex-grow: 1;
-  position: relative;
   padding-right: 60px;
+  position: relative;
+  height: 100px;      // ← Micșorat ca să lăsăm loc butonului
+  overflow: hidden;
+  flex-shrink: 0;
 }
 
 .bookTitle {
@@ -29,6 +33,12 @@
   line-height: 1.3;
   display: block;
   word-wrap: break-word;
+
+  // Limitează la 2 linii
+  display: -webkit-box;
+  //-webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .bookPrice {
@@ -47,5 +57,13 @@
   margin: 5px 0 0;
   display: block;
   clear: both;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
+// // Butonul din BookCard - înălțime fixă
+// .bookCardBtn {
+//   flex-shrink: 0;  // ← Nu se comprimă niciodată
+//   height: 40px;    // ← Înălțime fixă
+// }
