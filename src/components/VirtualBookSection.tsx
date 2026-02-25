@@ -8,7 +8,7 @@ const CARD_HEIGHT = 340;
 const CARD_GAP = 20;
 const CARD_STEP_X = CARD_WIDTH + CARD_GAP;
 const CARD_STEP_Y = CARD_HEIGHT + CARD_GAP;
-const OVERSCAN = 1; // 1 rând extra sus și jos
+const OVERSCAN = 1;
 
 type VirtualBookSectionProps = {
   title: string;
@@ -31,7 +31,6 @@ const VirtualBookSection: React.FC<VirtualBookSectionProps> = ({
   const [scrollTop, setScrollTop] = useState(0);
   const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
 
-  // ─── Citim dimensiunile containerului ────────────────────────────────────
   useEffect(() => {
     if (!containerRef.current) return;
 
@@ -43,40 +42,32 @@ const VirtualBookSection: React.FC<VirtualBookSectionProps> = ({
       });
     };
 
-    updateSize(); // Citim imediat
+    updateSize();
 
     const observer = new ResizeObserver(updateSize);
     observer.observe(containerRef.current);
     return () => observer.disconnect();
   }, []);
 
-  // ─── Câte carduri încap pe un rând ───────────────────────────────────────
   const cardsPerRow = containerSize.width > 0
     ? Math.max(1, Math.floor((containerSize.width + CARD_GAP) / CARD_STEP_X))
     : 0;
 
-  // ─── Câte rânduri avem în total ──────────────────────────────────────────
   const totalRows = cardsPerRow > 0
     ? Math.ceil(books.length / cardsPerRow)
     : 0;
 
-  // ─── Înălțimea totală a gridului ─────────────────────────────────────────
   const totalHeight = totalRows * CARD_STEP_Y - CARD_GAP;
 
-  // ─── Câte rânduri sunt vizibile în container ─────────────────────────────
   const visibleRowCount = containerSize.height > 0
     ? Math.ceil(containerSize.height / CARD_STEP_Y)
     : 0;
 
-  // ─── Rândul de start/stop vizibil ────────────────────────────────────────
   const firstVisibleRow = Math.max(0, Math.floor(scrollTop / CARD_STEP_Y) - OVERSCAN);
   const lastVisibleRow = Math.min(totalRows - 1, firstVisibleRow + visibleRowCount + OVERSCAN);
-
-  // ─── Indexul de start/stop al cărților vizibile ──────────────────────────
   const firstVisibleIndex = firstVisibleRow * cardsPerRow;
   const lastVisibleIndex = Math.min(books.length - 1, (lastVisibleRow + 1) * cardsPerRow - 1);
 
-  // ─── Scroll handler ───────────────────────────────────────────────────────
   const handleScroll = useCallback(() => {
     if (!containerRef.current) return;
     const { scrollTop, scrollHeight, clientHeight } = containerRef.current;
@@ -95,9 +86,6 @@ const VirtualBookSection: React.FC<VirtualBookSectionProps> = ({
     return () => el.removeEventListener('scroll', handleScroll);
   }, [handleScroll]);
 
-  // ─── Debug ────────────────────────────────────────────────────────────────
- // console.log(`[Virtual] cardsPerRow: ${cardsPerRow} | randate: ${lastVisibleIndex - firstVisibleIndex + 1} / ${books.length} | rows: ${firstVisibleRow}-${lastVisibleRow}/${totalRows}`);
-
   if (!books || books.length === 0) return null;
 
   return (
@@ -106,7 +94,6 @@ const VirtualBookSection: React.FC<VirtualBookSectionProps> = ({
 
       <div ref={containerRef} className={styles.bookListWrapper}>
         <div style={{ height: totalHeight, position: 'relative' }}>
-
           {cardsPerRow > 0 && books.slice(firstVisibleIndex, lastVisibleIndex + 1).map((book, i) => {
             const actualIndex = firstVisibleIndex + i;
             const row = Math.floor(actualIndex / cardsPerRow);
@@ -128,11 +115,8 @@ const VirtualBookSection: React.FC<VirtualBookSectionProps> = ({
               </div>
             );
           })}
-
         </div>
       </div>
-
-      {isLoading && <p className={styles.loadingMore}>Se încarcă...</p>}
     </section>
   );
 };

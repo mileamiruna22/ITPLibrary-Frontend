@@ -7,5 +7,5 @@ export interface OrderDto {
   orderDate: string;
   shippingAddress: AddressDto;
   orderItems: OrderItemDto[];
-  status: 'Processing' | 'Completed';
+  status: 'Pending' | 'Completed';
 }

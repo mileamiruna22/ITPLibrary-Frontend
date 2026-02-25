@@ -26,23 +26,17 @@ export const useBooks = () => {
     queryKey: ['books'],
     queryFn: ({ pageParam }) => fetchBooks(pageParam, PAGE_SIZE),
     initialPageParam: 1,
-
-    // Dacă pagina returnează mai puțin de PAGE_SIZE cărți → nu mai sunt pagini
     getNextPageParam: (lastPage, allPages) => {
       if (!lastPage.data || lastPage.data.length < PAGE_SIZE) return undefined;
-      return allPages.length + 1; // Următoarea pagină
+      return allPages.length + 1;
     },
-
     staleTime: 5 * 60 * 1000,
   });
 
-  
-
-  // ─── Combinăm toate paginile într-o listă plată ──────────────────────────
   const allBooks: Book[] = data?.pages
     .flatMap(page => page.data ?? [])
     .map(mapBookDtoToBook) ?? [];
-console.log('page data:', data?.pages[0]?.data?.length);
+
   return {
     books: {
       topBooks: allBooks.filter(book => book.popular),

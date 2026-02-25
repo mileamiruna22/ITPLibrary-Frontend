@@ -3,10 +3,10 @@
 .orderDetailsSection {
   display: flex;
   gap: 100px;
-  padding: 60px 0;
   margin-left: 10%;
   align-items: flex-start;
   flex-wrap: wrap;
+  padding-bottom: 100px;
 }
 
 .orderDetailsImage {
@@ -33,61 +33,48 @@
   font-weight: 600;
 }
 
-.formGroup {
-  margin-bottom: 15px;
+.formGroupInline {
+  display: flex;
+  gap: 15px;
 
-  &Inline {
-    display: flex;
-    gap: 15px;
-
-    > div {
-      flex: 1 1 50%;
-    }
-  }
-
-  &Radio {
-    display: flex;
-    gap: 30px;
-    align-items: center;
-
-    label {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 0.95rem;
-    }
-  }
-
-  &Checkbox {
-    label {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
+  > div {
+    flex: 1 1 50%;
   }
 }
 
-.formInput {
-  width: 100%;
-  padding: 12px 15px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-size: 0.95rem;
-  box-sizing: border-box;
+.formGroupRadio {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+  margin-bottom: 15px;
+
+  label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.95rem;
+  }
+}
+
+.formGroupCheckbox {
+  margin-bottom: 15px;
+
+  label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+}
+
+.textarea {
+  min-height: 100px;
+  resize: vertical;
+  font-family: inherit;
 }
 
 .formActions {
   display: flex;
   justify-content: space-between;
   gap: 15px;
-}
-
-.btn {
-  font-weight: 600;
-  justify-content: space-between;
-}
-
-.btnOutline {
-  background-color: transparent;
-  border: 1px solid #ccc;
+  margin-top: 20px;
 }

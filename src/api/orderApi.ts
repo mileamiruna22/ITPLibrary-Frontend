@@ -3,23 +3,16 @@ import type { OrderDto } from './dtos/OrderDTO';
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
-export const placeOrderApi = async (
-  orderData: PlaceOrderDto,
-): Promise<number> => {
-  
-
+export const placeOrderApi = async (orderData: PlaceOrderDto): Promise<number> => {
   const response = await fetch(`${API_BASE_URL}/Order/checkout`, {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
+    headers: { 'Content-Type': 'application/json' },
     credentials: 'include',
     body: JSON.stringify(orderData),
   });
 
   if (!response.ok) {
-    const errorText = await response.text();
-    throw new Error(`Failed to place order: ${errorText}`);
+    throw new Error(`Failed to place order: ${await response.text()}`);
   }
 
   const data = await response.json();
@@ -27,7 +20,6 @@ export const placeOrderApi = async (
 };
 
 export const getUserOrdersApi = async (): Promise<OrderDto[]> => {
-
   const response = await fetch(`${API_BASE_URL}/Order`, {
     method: 'GET',
     credentials: 'include',
@@ -45,48 +37,36 @@ export const updateOrderStatusApi = async (
   orderId: number,
   newStatus: string
 ): Promise<void> => {
-
-  console.log(`[API] Trimit update pentru comanda ${orderId} -> ${newStatus}`);
   const response = await fetch(`${API_BASE_URL}/Order`, {
     method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-
-    },
-    credentials: 'include', 
-    body: JSON.stringify({ 
-      orderId: orderId,      
-      newStatus: newStatus 
-    }), 
+    headers: { 'Content-Type': 'application/json' },
+    credentials: 'include',
+    body: JSON.stringify({ orderId, newStatus }),
   });
 
   if (!response.ok) {
     if (response.status === 401) {
       throw new Error('Session expired. Please login again.');
     }
-
-    const errorText = await response.text();
-    console.error('[API Error Body]:', errorText);
-    throw new Error(`Failed to update order status: ${errorText}`);
+    throw new Error(`Failed to update order status: ${await response.text()}`);
   }
 };
-
 
 export const getOrderByIdApi = async (orderId: number): Promise<OrderDto> => {
   const response = await fetch(`${API_BASE_URL}/Order/${orderId}`, {
     method: 'GET',
-    credentials: 'include', // <--- Trimite Cookie-ul
+    credentials: 'include',
   });
 
   if (!response.ok) {
-    throw new Error(`Failed to fetch order`);
+    throw new Error('Failed to fetch order');
   }
 
   return await response.json();
 };
 
 export const updateOrderDetailsApi = async (
- orderId: number,
+  orderId: number,
   updatedAddress: {
     street: string;
     city: string;
@@ -97,10 +77,8 @@ export const updateOrderDetailsApi = async (
 ): Promise<void> => {
   const response = await fetch(`${API_BASE_URL}/Order/${orderId}/details`, {
     method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    credentials: 'include', 
+    headers: { 'Content-Type': 'application/json' },
+    credentials: 'include',
     body: JSON.stringify(updatedAddress),
   });
 

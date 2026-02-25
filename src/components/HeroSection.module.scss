@@ -4,9 +4,7 @@
   display: flex;
   flex-direction: column;
   background-color: $color-bg-hero;
-  //padding: 40px 60px 40px 60px;
-  padding: 60px 80px 60px 80px;
-  padding-top: 100px;
+  padding: 100px 80px 60px;
   flex-wrap: wrap;
 }
 
@@ -19,14 +17,12 @@
   align-items: center;
   gap: 150px;
   max-width: 100%;
-  
 }
 
 .heroText {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding-left: 0;
   flex: 1;
   max-width: 500px;
 
@@ -49,9 +45,9 @@
 .heroImageContainer {
   display: flex;
   justify-content: flex-end;
-  align-items: center; 
+  align-items: center;
   flex-shrink: 0;
-  width: 400px; 
+  width: 400px;
   height: 300px;
 }
 
@@ -61,7 +57,6 @@
   height: auto;
   width: auto;
   object-fit: contain;
-
 }
 
 .sliderIndicators {
@@ -77,15 +72,15 @@
   width: 20px;
   height: 3px;
   border-radius: 2px;
-  background-color: $color-text-footer; 
+  background-color: $color-text-footer;
   transition: all 0.3s ease;
   cursor: pointer;
 
   &:hover {
-    opacity: 0.7; // ← ADAUGĂ - pentru feedback vizual
+    opacity: 0.7;
   }
 
   &.active {
-    background-color: $color-text-primary; 
+    background-color: $color-text-primary;
   }
 }

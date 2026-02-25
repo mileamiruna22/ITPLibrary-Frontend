@@ -113,3 +113,56 @@
   padding-top: 20px;
   border-top: 2px solid #eee;
 }
+
+.stateMessage {
+  padding: 50px;
+  text-align: center;
+}
+
+.stateMessageError {
+  color: red;
+}
+
+.emptyOrders {
+  text-align: center;
+  color: #666;
+  margin-top: 40px;
+
+  p {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+  }
+}
+
+.startShoppingLink {
+  text-decoration: none;
+  color: #d4a574;
+  border: 1px solid #d4a574;
+  padding: 10px 20px;
+  border-radius: 4px;
+}
+
+.ordersList {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.statusCompleted {
+  color: green;
+}
+
+.statusPending {
+  color: orange;
+}
+
+.orderMeta {
+  font-size: 0.8rem;
+  color: #999;
+  margin-top: 5px;
+}
+
+.orderEditDisabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

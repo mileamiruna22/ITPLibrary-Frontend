@@ -15,12 +15,6 @@
   }
 
   .registerFormContainer {
-    // display: flex;
-    // flex-direction: column;
-    // gap: 15px;
-    // width: 100%;
-    // flex: 1;
-
     .formActionsRegister {
       .btnRegister {
         width: 50%;
@@ -31,6 +25,16 @@
 
   .registerImage {
     width: 45%;
-    // flex: 1;
   }
+}
+
+.errorMessage {
+  color: red;
+  font-size: 0.85rem;
+  margin-top: 8px;
+  display: block;
+}
+
+.formActions {
+  margin-top: 20px;
 }

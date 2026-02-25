@@ -11,25 +11,16 @@ import { Notification } from '../components/Notification';
 export const ShoppingCart: React.FC = () => {
   const { isLoggedIn } = useAuth();
   const { cartItems, removeFromCart, totalPrice } = useCart();
-
   const { notification, showNotification, closeNotification } = useNotification();
 
   const handleRemoveItem = (itemId: number, itemTitle: string) => {
-
-    showNotification(
-      'success', 
-      'Product removed.', 
-      `"${itemTitle}" is no longer in your cart.`
-    );
-
-    setTimeout(() => {
-    removeFromCart(itemId);
-    }, 3000);
+    showNotification('success', 'Product removed.', `"${itemTitle}" is no longer in your cart.`);
+    setTimeout(() => removeFromCart(itemId), 3000);
   };
 
   if (!isLoggedIn) {
     return (
-       <LoginRequiredMessage
+      <LoginRequiredMessage
         title="Please log in first"
         message="You need to be logged in to view your shopping cart and place orders."
         buttonText="Go to Login"
@@ -43,15 +34,8 @@ export const ShoppingCart: React.FC = () => {
         <section className={styles.cartSection}>
           <h2>Shopping Cart</h2>
           <div className={styles.emptyCart}>
-            <p>
-              Your cart is currently empty.
-            </p>
-            <Button
-              to="/"
-              variant="outline"
-            >
-              Start Shopping
-            </Button>
+            <p>Your cart is currently empty.</p>
+            <Button to="/" variant="outline">Start Shopping</Button>
           </div>
         </section>
       </main>
@@ -77,17 +61,8 @@ export const ShoppingCart: React.FC = () => {
                 <p className={styles.detailAuthor}>
                   by <span className={styles.authorName}>{item.author}</span>
                 </p>
-
                 {item.quantity > 1 && (
-                  <p
-                    style={{
-                      fontSize: '0.9rem',
-                      color: '#666',
-                      marginTop: '5px',
-                    }}
-                  >
-                    Qty: {item.quantity}
-                  </p>
+                  <p className={styles.itemQuantity}>Qty: {item.quantity}</p>
                 )}
               </div>
 
@@ -95,14 +70,12 @@ export const ShoppingCart: React.FC = () => {
                 <div className={styles.cartItemPrice}>
                   {(item.price * item.quantity).toFixed(2)} $
                 </div>
-
                 <button
-                    className={styles.cartItemRemove}
-                    // onClick={() => removeFromCart(item.id)} 
-                    onClick={() => handleRemoveItem(item.id, item.title)}
-                  >
-                    <span>🗑️</span> Remove
-                  </button>
+                  className={styles.cartItemRemove}
+                  onClick={() => handleRemoveItem(item.id, item.title)}
+                >
+                  <span>🗑️</span> Remove
+                </button>
               </div>
             </div>
           ))}
@@ -113,31 +86,20 @@ export const ShoppingCart: React.FC = () => {
             <span>Total:</span>
             <span className={styles.totalPrice}>{totalPrice.toFixed(2)} $</span>
           </div>
-
           <div className={styles.cartActions}>
-            <Button
-              to="/"
-              variant="outline"
-            >
-              Continue Shopping
-            </Button>
-            <Button to="/orders-details" variant="primary">
-              Place Order
-            </Button>
-       
+            <Button to="/" variant="outline">Continue Shopping</Button>
+            <Button to="/orders-details" variant="primary">Place Order</Button>
           </div>
         </div>
       </section>
 
-
-       <Notification
+      <Notification
         type={notification.type}
         title={notification.title}
         message={notification.message}
         isOpen={notification.isOpen}
         onClose={closeNotification}
       />
-
     </main>
   );
 };

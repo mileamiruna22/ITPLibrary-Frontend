@@ -1,16 +1,14 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './HeroSection.module.scss';
-import { useState, useEffect } from 'react';
+
+const slides = [
+  { image: '/slider1.png', alt: 'Library books 1' },
+  { image: '/slider2.png', alt: 'Library books 2' },
+  { image: '/slider3.png', alt: 'Library books 3' },
+];
 
 export const HeroSection: React.FC = () => {
-
   const [currentSlide, setCurrentSlide] = useState(0);
-
-  const slides = [
-    { image: '/slider1.png', alt: 'Library books 1' },
-    { image: '/slider2.png', alt: 'Library books 2' },
-    { image: '/slider3.png', alt: 'Library books 3' }
-  ];
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -18,12 +16,7 @@ export const HeroSection: React.FC = () => {
     }, 5000);
 
     return () => clearInterval(interval);
-  }, [slides.length]);
-
-  const goToSlide = (index: number) => {
-    console.log('Clicked on slide:', index);
-    setCurrentSlide(index);
-  };
+  }, []);
 
   return (
     <section className={styles.heroSection}>
@@ -48,7 +41,7 @@ export const HeroSection: React.FC = () => {
         {slides.map((_, index) => (
           <div
             key={index}
-            onClick={() => goToSlide(index)}
+            onClick={() => setCurrentSlide(index)}
             className={`${styles.indicator} ${currentSlide === index ? styles.active : ''}`}
           />
         ))}

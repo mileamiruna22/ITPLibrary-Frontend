@@ -4,39 +4,39 @@ import { notificationIcons, CloseIcon } from './icons';
 import styles from './Notification.module.scss';
 
 export const Notification: React.FC<NotificationProps> = ({
-  type,                         
+  type,
   title,
   message,
   isOpen,
   onClose,
-  autoClose = true,              
-  duration = 3000                
+  autoClose = true,
+  duration = 3000,
 }) => {
-
   useEffect(() => {
     if (isOpen && autoClose) {
       const timer = setTimeout(() => {
-        onClose();  
+        onClose();
       }, duration);
       return () => clearTimeout(timer);
     }
-  }, [isOpen, autoClose, duration, onClose]); 
+  }, [isOpen, autoClose, duration, onClose]);
 
   if (!isOpen) return null;
 
   return (
-    <div className={`${styles.notification} ${styles[`notification--${type}`]}`}>
+    <div
+      className={`${styles.notification} ${styles[`notification--${type}`]}`}
+      style={{ '--duration': `${duration}ms` } as React.CSSProperties}
+    >
       <div className={styles.notificationContent}>
         <div className={styles.notificationIcon}>
           {notificationIcons[type]}
         </div>
-
         <div className={styles.notificationText}>
           <h3 className={styles.notificationTitle}>{title}</h3>
           <p className={styles.notificationMessage}>{message}</p>
         </div>
-
-        <button 
+        <button
           className={styles.notificationClose}
           onClick={onClose}
           aria-label="Închide"
@@ -44,12 +44,9 @@ export const Notification: React.FC<NotificationProps> = ({
           <CloseIcon />
         </button>
       </div>
- 
+
       <div className={styles.progressBar}>
-        <div 
-          className={styles.progressFill} 
-          style={{ animationDuration: `${duration}ms` }}
-        />
+        <div className={styles.progressFill} />
       </div>
     </div>
   );

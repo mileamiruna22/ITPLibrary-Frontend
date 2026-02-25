@@ -3,10 +3,28 @@ import { useRef, useEffect } from 'react';
 import type { PlaceOrderDto } from '../api/dtos/PlaceOrderDTO';
 import { placeOrderApi, getUserOrdersApi, updateOrderStatusApi } from '../api/orderApi';
 import type { CartItem } from '../types/CartItem';
+import type { OrderDto } from '../api/dtos/OrderDTO';
+
+interface OrderDetails {
+  firstName: string;
+  lastName: string;
+  billingCountry: string;
+  billingAddress: string;
+  billingCity: string;
+  billingState: string;
+  billingPostalCode: string;
+  billingPhone: string;
+  useBillingForDelivery: boolean;
+  deliveryCountry?: string;
+  deliveryAddress?: string;
+  deliveryCity?: string;
+  deliveryState?: string;
+  deliveryPostalCode?: string;
+  deliveryPhone?: string;
+}
 
 export const useOrders = () => {
   const queryClient = useQueryClient();
-  
   const processedOrderIds = useRef<Set<number>>(new Set());
 
   const {
@@ -22,95 +40,76 @@ export const useOrders = () => {
   useEffect(() => {
     if (!orders || orders.length === 0) return;
 
-    orders.forEach((order: any) => {
+    orders.forEach((order: OrderDto) => {
       
       const isNewOrder = order.status === 'Pending';
-      console.log(`---> Comanda #${order.id} are status: "${order.status}"`);
       const alreadyScheduled = processedOrderIds.current.has(order.id);
 
       if (isNewOrder && !alreadyScheduled) {
-        console.log(`[Timer] Găsit comanda #${order.id} cu status '${order.status}'. Pregătesc schimbarea în 'Shipped'...`);
-       
         processedOrderIds.current.add(order.id);
-
-        const orderDate = new Date(order.orderDate);
-        const now = new Date();
-        console.log(`     [TIME] Data comenzii: ${orderDate.toString()}`);
-        console.log(`     [TIME] Data curentă:  ${now.toString()}`);
-        const diffMs = now.getTime() - orderDate.getTime();
-        console.log(`     [TIME] Diferența (ms): ${diffMs}`);
-    
-        let delay = 120000 - diffMs; 
-
-        if (delay < 0) delay = 2000; 
-
-        console.log(`[Timer] Comanda #${order.id} se va actualiza în ${Math.floor(delay / 1000)} secunde.`);
+        const delay = 2000;
 
         setTimeout(async () => {
           try {
-   
+           
             await updateOrderStatusApi(order.id, 'Completed');
-            console.log(`[Timer] Comanda #${order.id} a devenit 'Completed'.`);
-
             queryClient.invalidateQueries({ queryKey: ['orders'] });
-            
-          } catch (err) {
-            console.error(`[Timer Error] Nu am putut actualiza comanda #${order.id}`, err);
+          } catch {
           }
         }, delay);
       }
     });
-  }, [orders, queryClient]); 
-
+  }, [orders, queryClient]);
 
   const addOrderMutation = useMutation({
-    mutationFn: async ({ details, items, total }: { details: any; items: CartItem[]; total: number }) => {
-      const bookIds: number[] = [];
-      items.forEach((item) => {
-        for (let i = 0; i < item.quantity; i++) {
-          bookIds.push(item.id);
-        }
-      });
+    mutationFn: async ({ details, items }: { details: OrderDetails; items: CartItem[]; total: number }) => {
+      const bookIds: number[] = items.flatMap((item) =>
+        Array(item.quantity).fill(item.bookId)
+      );
 
       if (bookIds.length === 0) {
-        throw new Error('Coșul este gol.');
+        throw new Error('Cart is empty.');
       }
 
-      const addressToUse = details.deliveryAddress || details.billingAddress || 'Address Missing';
-      
+      const useDelivery = !details.useBillingForDelivery;
+
       const payload: PlaceOrderDto = {
-        bookIds: bookIds,
+        bookIds,
         shippingAddress: {
-          street: addressToUse,
-          country: details.deliveryCountry || 'Romania',
-          city: details.city || 'Sibiu', 
-          state: details.state || 'Sibiu',
-          postalCode: details.zip || '550000',
+          street: (useDelivery && details.deliveryAddress)
+                  ? details.deliveryAddress
+                  : details.billingAddress,
+          city: (useDelivery && details.deliveryCity)
+                ? details.deliveryCity
+                : details.billingCity,
+          state: (useDelivery && details.deliveryState)
+                 ? details.deliveryState
+                 : details.billingState,
+          postalCode: (useDelivery && details.deliveryPostalCode)
+                      ? details.deliveryPostalCode
+                      : details.billingPostalCode,
+          country: (useDelivery && details.deliveryCountry)
+                   ? details.deliveryCountry
+                   : details.billingCountry,
         },
       };
 
       return await placeOrderApi(payload);
     },
-    onSuccess: (orderId) => {
-      console.log('Comanda a fost plasată cu succes! ID:', orderId);
-      // Reîmprospătăm lista de comenzi imediat
+    onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['orders'] });
-      // Opțional: Aici ar trebui să golești coșul (prin hook-ul useCart, nu localStorage)
-    },
-    onError: (error: any) => {
-      console.error('Eroare la plasarea comenzii:', error);
-      alert(error.message || 'Nu s-a putut plasa comanda.');
     },
   });
 
-  const addOrder = (details: any, items: CartItem[], total: number) => {
-    addOrderMutation.mutate({ details, items, total });
+  const addOrder = async (data: { details: OrderDetails; items: CartItem[]; total: number }) => {
+    return await addOrderMutation.mutateAsync(data);
   };
 
   return {
     orders,
     addOrder,
     isLoading: addOrderMutation.isPending || isLoadingOrders,
-    error
+    isPlacingOrder: addOrderMutation.isPending,
+    error,
   };
 };

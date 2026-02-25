@@ -19,16 +19,15 @@
 
 .recentlyAdded h2 {
   margin-bottom: 30px;
-  margin-top: 0px;
+  margin-top: 0;
   font-size: larger;
 }
 
-// Container scrollabil vertical cu înălțime fixă
 .bookListWrapper {
   position: relative;
   overflow-y: auto;
   overflow-x: hidden;
-  height: 700px; // Ajustează: câte rânduri vrei să se vadă
+  height: 650px;
   width: 100%;
 }
 

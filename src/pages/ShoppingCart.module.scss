@@ -19,6 +19,12 @@
   border-bottom: 1px solid #eee;
 }
 
+.itemQuantity {
+  font-size: 0.9rem;
+  color: #666;
+  margin-top: 5px;
+}
+
 .cartItemImage {
   margin-right: 20px;
   border-radius: 4px;
@@ -42,10 +48,6 @@
   text-align: right;
 }
 
-.removeIcon {
-  font-size: 0.8rem;
-}
-
 .cartTotal {
   display: flex;
   justify-content: space-between;
@@ -60,42 +62,11 @@
 .cartActions {
   display: flex;
   justify-content: space-between;
-
 }
 
-.emptyCart{
+.emptyCart {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 20px;
-}
-
-.guestMessageContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 100px 0;
-  text-align: center;
-  gap: 20px;
-
-  h2 {
-    font-size: 2rem;
-    margin-bottom: 10px;
-  }
-
-  p {
-    color: $color-text-secondary;
-    margin-bottom: 20px;
-  }
-
-  .btnLoginRedirect {
-    background-color: $color-accent-btn-bg;
-    color: $color-white;
-    padding: 15px 40px;
-    font-weight: bold;
-    border-radius: 4px;
-    text-transform: uppercase;
-    transition: opacity 0.3s;
-  }
 }

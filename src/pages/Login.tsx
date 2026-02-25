@@ -8,13 +8,13 @@ import { Button } from '../components';
 import { useAuth } from '../contexts/AuthProvider';
 
 export const Login: React.FC = () => {
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
-  
-  const [errors, setErrors] = useState<{ email?: string; password?: string }>({});
-  const [touched, setTouched] = useState<{ email?: boolean; password?: boolean }>({});
-  
+
+  const [errors, setErrors] = useState<{ username?: string; password?: string }>({});
+  const [touched, setTouched] = useState<{ username?: boolean; password?: boolean }>({});
+
   const { login, loading, error, isLoggedIn } = useAuth();
   const navigate = useNavigate();
 
@@ -24,92 +24,77 @@ export const Login: React.FC = () => {
     }
   }, [isLoggedIn, navigate]);
 
-  // Validare câmpuri - FĂRĂ validare regex pentru email
-  const validateField = (field: 'email' | 'password', value: string) => {
-    if (field === 'email') {
-      if (!value.trim()) return 'Email/Username is required'; // Schimbat mesajul
-    }
-    if (field === 'password') {
-      if (!value.trim()) return 'Password is required';
-    }
+  const validateField = (field: 'username' | 'password', value: string) => {
+    if (field === 'username' && !value.trim()) return 'Username is required';
+    if (field === 'password' && !value.trim()) return 'Password is required';
     return '';
   };
 
-  const handleBlur = (field: 'email' | 'password') => {
+  const handleBlur = (field: 'username' | 'password') => {
     setTouched({ ...touched, [field]: true });
-    const value = field === 'email' ? email : password;
-    const error = validateField(field, value);
-    setErrors({ ...errors, [field]: error });
+    const value = field === 'username' ? username : password;
+    setErrors({ ...errors, [field]: validateField(field, value) });
   };
 
-  const handleChange = (field: 'email' | 'password', value: string) => {
-    if (field === 'email') setEmail(value);
+  const handleChange = (field: 'username' | 'password', value: string) => {
+    if (field === 'username') setUsername(value);
     if (field === 'password') setPassword(value);
-    
+
     if (touched[field]) {
-      const error = validateField(field, value);
-      setErrors({ ...errors, [field]: error });
+      setErrors({ ...errors, [field]: validateField(field, value) });
     }
   };
 
   const handleLogin = async (e: FormEvent) => {
     e.preventDefault();
 
-    const emailError = validateField('email', email);
+    const usernameError = validateField('username', username);
     const passwordError = validateField('password', password);
 
-    if (emailError || passwordError) {
-      setErrors({ email: emailError, password: passwordError });
-      setTouched({ email: true, password: true });
+    if (usernameError || passwordError) {
+      setErrors({ username: usernameError, password: passwordError });
+      setTouched({ username: true, password: true });
       return;
     }
 
-    const success = await login({ userEmail: email, password: password });
-
-    if (success) {
-      console.log('Login successful!');
-      navigate('/'); 
-    }
+    const success = await login({ userEmail: username, password });
+    if (success) navigate('/');
   };
 
   return (
-    <main className={`${layoutStyles.contentWrapper}`}>
-      <section className={`${registerStyles.registerSection}`}>
-        <div className={`${registerStyles.registerImage}`}>
+    <main className={layoutStyles.contentWrapper}>
+      <section className={registerStyles.registerSection}>
+        <div className={registerStyles.registerImage}>
           <img
             src="https://images.pexels.com/photos/11836671/pexels-photo-11836671.jpeg"
             alt="Bookshelf with lights"
           />
         </div>
 
-        <div className={`${registerStyles.registerFormContainer}`}>
-          <h1 className={`${registerStyles.registerTitle}`}>Log in</h1>
+        <div className={registerStyles.registerFormContainer}>
+          <h1 className={registerStyles.registerTitle}>Log in</h1>
           <p>Use a local account to log in.</p>
-          
-          {error && (
-            <div className={`${registerStyles.errorMessage}`}>{error}</div>
-          )}
+
+          {error && <div className={registerStyles.errorMessage}>{error}</div>}
 
           <form onSubmit={handleLogin}>
-            {/* EMAIL */}
             <div className={formStyles.formGroup}>
-              <label htmlFor="email">Email or Username</label> {/* ← Schimbat label */}
+              <label htmlFor="username">Username</label>
               <input
-                type="text" 
-                id="email"
-                placeholder="Email or Username"
-                value={email}
-                onChange={(e) => handleChange('email', e.target.value)}
-                onBlur={() => handleBlur('email')}
-                className={touched.email && errors.email ? formStyles.inputError : ''}
+                type="text"
+                id="username"
+                placeholder="Username"
+                value={username}
+                onChange={(e) => handleChange('username', e.target.value)}
+                onBlur={() => handleBlur('username')}
+                className={touched.username && errors.username ? formStyles.inputError : ''}
                 disabled={loading}
               />
-              {touched.email && errors.email && (
-                <span className={formStyles.errorMessage}>{errors.email}</span>
+              {touched.username && errors.username && (
+                <span className={formStyles.errorMessage}>{errors.username}</span>
               )}
             </div>
 
-            {/* PASSWORD */}
             <div className={formStyles.formGroup}>
               <label htmlFor="password">Password</label>
               <input
@@ -127,9 +112,8 @@ export const Login: React.FC = () => {
               )}
             </div>
 
-            {/* REMEMBER ME */}
-            <div style={{ marginBottom: '20px' }}>
-              <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
+            <div className={loginStyles.rememberMe}>
+              <label>
                 <input
                   type="checkbox"
                   checked={rememberMe}
@@ -140,23 +124,18 @@ export const Login: React.FC = () => {
             </div>
 
             <div>
-              <Button
-                type="submit"
-                variant="primary"
-                disabled={loading}
-              >
+              <Button type="submit" variant="primary" disabled={loading}>
                 {loading ? 'Logging in...' : 'Log In'}
               </Button>
             </div>
 
-            {/* LINKS */}
-            <div className={`${loginStyles.loginLinks}`}>
-              <a href="#" className={`${loginStyles.loginLink}`}>
+            <div className={loginStyles.loginLinks}>
+              <a href="#" className={loginStyles.loginLink}>
                 Forgot your password?
               </a>
             </div>
-            <div className={`${loginStyles.loginLinks}`}>
-              <Link to="/register" className={`${loginStyles.loginLink}`}>
+            <div className={loginStyles.loginLinks}>
+              <Link to="/register" className={loginStyles.loginLink}>
                 Register as new user
               </Link>
             </div>

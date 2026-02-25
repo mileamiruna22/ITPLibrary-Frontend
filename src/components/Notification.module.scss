@@ -1,6 +1,5 @@
 @use '../styles/abstracts/variables' as *;
 
-// Culori de alertă rafinate
 $success-main: #10b981;
 $success-bg: #ecfdf5;
 $error-main: #ef4444;
@@ -45,7 +44,7 @@ $info-bg: #eff6ff;
   display: flex;
   align-items: center;
   justify-content: center;
-  
+
   svg {
     width: 20px;
     height: 20px;
@@ -86,39 +85,39 @@ $info-bg: #eff6ff;
   }
 }
 
-// Bara de progres subtilă în partea de jos
 .progressBar {
   position: absolute;
   bottom: 0;
   left: 0;
   width: 100%;
   height: 3px;
-  background-color: rgba(0,0,0,0.05);
+  background-color: rgba(0, 0, 0, 0.05);
 }
 
 .progressFill {
   height: 100%;
   width: 0;
-  background-color: currentColor;
-  animation: progressLinear linear forwards;
+  animation: progressLinear var(--duration, 3000ms) linear forwards;
 }
 
-// Modificatori culori
 .notification--success {
   border-left: 4px solid $success-main;
   .notificationIcon { background-color: $success-bg; color: $success-main; }
   .progressFill { background-color: $success-main; }
 }
+
 .notification--error {
   border-left: 4px solid $error-main;
   .notificationIcon { background-color: $error-bg; color: $error-main; }
   .progressFill { background-color: $error-main; }
 }
+
 .notification--warning {
   border-left: 4px solid $warning-main;
   .notificationIcon { background-color: $warning-bg; color: $warning-main; }
   .progressFill { background-color: $warning-main; }
 }
+
 .notification--info {
   border-left: 4px solid $info-main;
   .notificationIcon { background-color: $info-bg; color: $info-main; }

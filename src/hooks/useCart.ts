@@ -1,15 +1,18 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { getCartApi, addToCartApi, removeFromCartApi, type ShoppingCartItemDto } from '../api/shoppingCartApi';
+import { useAuth } from '../contexts/AuthProvider';
 import type { Book } from '../types/Book';
 import type { CartItem } from '../types/CartItem';
 
 export const useCart = () => {
   const queryClient = useQueryClient();
+  const { isLoggedIn } = useAuth();
 
   const { data: backendCartItems = [], isLoading: isLoadingCart } = useQuery({
     queryKey: ['cart'],
     queryFn: getCartApi,
     initialData: [],
+    enabled: isLoggedIn,
   });
 
   const cartItems: CartItem[] = backendCartItems.reduce(
@@ -44,14 +47,11 @@ export const useCart = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['cart'] });
     },
-    onError: (error: any) => {
-      console.error('Error adding to cart:', error);
-
+    onError: (error: Error) => {
       if (error.message?.includes('not authenticated')) {
-        alert('You are not authenticated. Please log in again.');
-      } else {
-        alert('Could not add the book to the cart. Please try again.');
+        throw new Error('You are not authenticated. Please log in again.');
       }
+      throw new Error('Could not add the book to the cart. Please try again.');
     },
   });
 
@@ -62,17 +62,13 @@ export const useCart = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['cart'] });
     },
-    onError: (error: any) => {
-      console.error('Error removing from cart:', error);
-
+    onError: (error: Error) => {
       if (error.message?.includes('not authenticated')) {
-        alert('You are not authenticated. Please log in again.');
-      } else {
-        alert('Could not remove the book from the cart. Please try again.');
+        throw new Error('You are not authenticated. Please log in again.');
       }
+      throw new Error('Could not remove the book from the cart. Please try again.');
     },
   });
-
 
   const totalPrice = cartItems.reduce(
     (acc, item) => acc + item.price * item.quantity,

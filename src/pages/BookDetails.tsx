@@ -34,15 +34,12 @@ export const BookDetails = () => {
 
     if (book) {
       addToCart({
-        ...book, 
-
-
+        ...book,
         thumbnail: book.image,
         imageSrc: book.image,
         imageAlt: book.imageAlt,
         description: book.longDescription,
         priceDisplay: `${book.price} $`,
-
         popular: false,
         recentlyAdded: false,
       });
@@ -66,7 +63,7 @@ export const BookDetails = () => {
           />
         </div>
 
-        <div className={styles.detailInfoBlock} style={{ flexGrow: 1 }}>
+        <div className={styles.detailInfoBlock}>
           <div className={styles.titlePriceRow}>
             <h1 className={styles.detailTitle}>{book?.title}</h1>
             <span className={styles.detailPrice}>{`${book?.price} $`}</span>
@@ -74,10 +71,8 @@ export const BookDetails = () => {
           <p className={styles.detailAuthor}>
             by <span className={styles.authorName}>{book?.author}</span>
           </p>
-
           <p className={styles.detailDescription}>{book?.longDescription}</p>
-
-          <Button  variant="primary" onClick={handleAddToCart}>
+          <Button variant="primary" onClick={handleAddToCart}>
             🛒 Add to cart
           </Button>
         </div>

@@ -1,45 +1,27 @@
-// src/components/CartBadge.module.scss
+@use '../styles/abstracts/variables' as *;
 
 .cartBadge {
   position: absolute;
   top: -8px;
   right: -10px;
-  
-  // Stil badge roșu
   background-color: #ef4444;
   color: white;
   font-size: 10px;
   font-weight: 700;
-  
-  // Dimensiuni
   width: 14px;
   height: 14px;
   padding: 0 5px;
-  
-  // Forma rotundă
   border-radius: 10px;
-  
-  // Centrare text
   display: flex;
   align-items: center;
   justify-content: center;
-  
-  // Border alb pentru contrast
   border: 2px solid white;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  
-  // Animație la apariție
   animation: popIn 0.3s ease-out;
 }
 
 @keyframes popIn {
-  0% {
-    transform: scale(0);
-  }
-  50% {
-    transform: scale(1.2);
-  }
-  100% {
-    transform: scale(1);
-  }
+  0% { transform: scale(0); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
 }

@@ -23,18 +23,3 @@
     text-decoration: underline;
   }
 }
-
-.footerContent .right-icon {
-  width: 30px;
-  height: 30px;
-  background-color: $color-text-primary;
-  display: flex;
-  justify-content: flex-start;
-  align-items: flex-start;
-}
-
-.footerContent .right-icon::before {
-  content: '✉️';
-  color: $color-white;
-  font-size: 0.9rem;
-}
